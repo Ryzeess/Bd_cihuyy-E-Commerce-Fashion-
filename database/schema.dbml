@@ -1,65 +1,60 @@
 // ========================================================
-// DBML SCHEMA: FASHION E-COMMERCE (3 TABEL UTAMA)
-// File: database/Fashion ecommers cihuy.dbml
+// DBML SCHEMA: FASHION E-COMMERCE (SKEMA BRD v2.0 - 3 TABEL PERTAMA)
+// File: database/Fashion ecommers v2.dbml
+// Sesuai dengan Business Requirement Document (BRD) Minggu 2
 // ========================================================
 
 // --------------------------------------------------------
-// 1. Tabel Users (Pelanggan / Pengguna)
-// Menyimpan data akun pengguna yang berbelanja pakaian/fashion
+// 1. Tabel Produk
+// Menyimpan informasi katalog pakaian/fashion
 // --------------------------------------------------------
-Table users {
-  id bigint [pk, increment]
-  nama varchar(255) [not null]
-  email varchar(255) [unique, not null]
-  password varchar(255) [not null]
-  no_telp varchar(20) [null, note: 'Nomor telepon/WhatsApp pelanggan']
-  alamat text [null, note: 'Alamat pengiriman pakaian/barang']
-  tanggal_daftar timestamp [default: `now()`]
+Table produk {
+  id_produk int [pk, increment, note: 'Primary Key, ID Produk']
+  id_kategori int [not null, note: 'Foreign Key ke tabel kategori']
+  nama_produk varchar(150) [not null, note: 'Nama produk pakaian']
+  deskripsi text [null, note: 'Deskripsi produk']
+  harga decimal(12, 2) [not null, note: 'Harga produk']
+  bahan varchar(50) [null, note: 'Bahan pakaian: Katun, Linen, Denim, dll']
+  gaya varchar(50) [null, note: 'Gaya pakaian: Casual, Formal, dll']
+  berat int [not null, note: 'Berat produk dalam satuan gram untuk ongkos kirim']
 
-  Note: 'Tabel utama data pembeli/pelanggan fashion e-commerce'
+  Note: 'Tabel produk pakaian sesuai spesifikasi BRD'
 }
 
 // --------------------------------------------------------
-// 2. Tabel Products (Produk Fashion)
-// Menyimpan katalog pakaian, celana, jaket, dan apparel lainnya
+// 2. Tabel Varian Produk
+// Menyimpan kombinasi warna & ukuran serta stok real-time
 // --------------------------------------------------------
-Table products {
-  id bigint [pk, increment]
-  nama_produk varchar(255) [not null]
-  kategori varchar(100) [not null, note: 'Contoh: Kaos, Kemeja, Celana, Jaket, Hoodie']
-  deskripsi text [null]
-  harga decimal(12, 2) [not null, note: 'Harga produk per satuan (Rupiah)']
-  stok integer [not null, default: 0, note: 'Jumlah stok barang yang tersedia']
-  ukuran varchar(50) [null, note: 'Ukuran fashion: S, M, L, XL, XXL, All Size']
-  warna varchar(50) [null, note: 'Varian warna: Hitam, Putih, Navy, Sage, dll']
-  created_at timestamp [default: `now()`]
+Table varian_produk {
+  id_varian int [pk, increment, note: 'Primary Key, ID Varian']
+  id_produk int [not null, note: 'Foreign Key ke tabel produk']
+  id_warna int [not null, note: 'Foreign Key ke tabel warna']
+  id_ukuran int [not null, note: 'Foreign Key ke tabel ukuran']
+  kode_barang varchar(50) [unique, not null, note: 'Kode SKU barang']
+  stok int [not null, default: 0, note: 'Jumlah stok tersedia']
 
-  Note: 'Tabel katalog produk fashion'
+  Note: 'Tabel varian produk untuk mengelola stok per ukuran & warna'
 }
 
 // --------------------------------------------------------
-// 3. Tabel Orders (Pesanan / Transaksi Pembelian)
-// Menghubungkan pembeli (users) dengan produk yang dibeli (products)
+// 3. Tabel Pelanggan
+// Menyimpan data akun dan identitas pembeli
 // --------------------------------------------------------
-Table orders {
-  id bigint [pk, increment]
-  user_id bigint [not null, note: 'Foreign key merujuk ke users.id']
-  product_id bigint [not null, note: 'Foreign key merujuk ke products.id']
-  jumlah integer [not null, default: 1, note: 'Jumlah item pakaian yang dibeli']
-  total_harga decimal(12, 2) [not null, note: 'Total biaya pembelian']
-  status_pesanan varchar(50) [default: 'pending', note: 'Status: pending | diproses | dikirim | selesai | dibatalkan']
-  metode_pembayaran varchar(50) [not null, note: 'Metode: transfer_bank | cod | e-wallet']
-  tanggal_pesanan timestamp [default: `now()`]
+Table pelanggan {
+  id_pelanggan int [pk, increment, note: 'Primary Key, ID Pelanggan']
+  nama varchar(100) [not null, note: 'Nama pelanggan']
+  email varchar(100) [unique, not null, note: 'Email pelanggan']
+  password varchar(255) [not null, note: 'Password akun terenkripsi']
+  no_telepon varchar(20) [null, note: 'Nomor telepon pelanggan']
+  alamat text [null, note: 'Alamat pelanggan']
+  tanggal_daftar datetime [default: `now()`, note: 'Waktu pelanggan mendaftar']
 
-  Note: 'Tabel transaksi pemesanan produk fashion oleh pelanggan'
+  Note: 'Tabel data pelanggan/pembeli sesuai spesifikasi BRD'
 }
 
 // --------------------------------------------------------
 // Relasi Antar Tabel (Relationships)
 // --------------------------------------------------------
 
-// Relasi 1: Satu user dapat melakukan banyak transaksi pesanan
-Ref: users.id < orders.user_id [delete: cascade]
-
-// Relasi 2: Satu produk dapat dibeli di dalam banyak transaksi pesanan
-Ref: products.id < orders.product_id [delete: cascade]
+// Relasi: Satu produk memiliki banyak varian (ukuran & warna)
+Ref: produk.id_produk < varian_produk.id_produk [delete: cascade]
