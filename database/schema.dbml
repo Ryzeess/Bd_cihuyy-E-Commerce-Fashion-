@@ -1,173 +1,65 @@
 // ========================================================
-// DBML (Database Markup Language)
-// Proyek: Cihuy Store (E-Commerce & Transaksi)
-// Buka https://dbdiagram.io dan paste kode ini untuk melihat diagramnya
+// DBML SCHEMA: FASHION E-COMMERCE (3 TABEL UTAMA)
+// File: database/Fashion ecommers cihuy.dbml
 // ========================================================
 
-Project cihuy_store {
-  database_type: 'MySQL'
-  Note: '''
-    # Database Cihuy Store
-    Skema database lengkap untuk sistem Toko Online / E-Commerce
-    Mendukung manajemen user, profil, kategori, produk, pesanan, dan pembayaran.
-  '''
-}
-
 // --------------------------------------------------------
-// ENUMS (Tipe Data Pilihan)
-// --------------------------------------------------------
-Enum user_role {
-  admin
-  staff
-  customer
-}
-
-Enum order_status {
-  pending
-  paid
-  processing
-  shipped
-  delivered
-  cancelled
-}
-
-Enum payment_method {
-  bank_transfer
-  qris
-  e_wallet
-  credit_card
-  cod
-}
-
-Enum payment_status {
-  unpaid
-  paid
-  failed
-  refunded
-}
-
-// --------------------------------------------------------
-// TABEL: USERS & PROFILES
+// 1. Tabel Users (Pelanggan / Pengguna)
+// Menyimpan data akun pengguna yang berbelanja pakaian/fashion
 // --------------------------------------------------------
 Table users {
-  id integer [primary key, increment]
-  name varchar(100) [not null]
-  email varchar(150) [unique, not null]
+  id bigint [pk, increment]
+  nama varchar(255) [not null]
+  email varchar(255) [unique, not null]
   password varchar(255) [not null]
-  role user_role [default: 'customer']
-  created_at timestamp [default: `now()`]
-  updated_at timestamp
+  no_telp varchar(20) [null, note: 'Nomor telepon/WhatsApp pelanggan']
+  alamat text [null, note: 'Alamat pengiriman pakaian/barang']
+  tanggal_daftar timestamp [default: `now()`]
 
-  Note: 'Tabel pengguna (admin, staf, pembeli)'
-}
-
-Table user_profiles {
-  id integer [primary key, increment]
-  user_id integer [unique, not null, ref: - users.id] // One-to-One
-  phone varchar(20)
-  address text
-  city varchar(100)
-  postal_code varchar(10)
-  avatar_url varchar(255)
-
-  Note: 'Detail biodata tambahan user (Relasi 1:1)'
+  Note: 'Tabel utama data pembeli/pelanggan fashion e-commerce'
 }
 
 // --------------------------------------------------------
-// TABEL: KATALOG PRODUK
+// 2. Tabel Products (Produk Fashion)
+// Menyimpan katalog pakaian, celana, jaket, dan apparel lainnya
 // --------------------------------------------------------
-Table categories {
-  id integer [primary key, increment]
-  name varchar(100) [not null]
-  slug varchar(120) [unique, not null]
-  description text
-  created_at timestamp [default: `now()`]
-
-  Note: 'Kategori pengelompokan produk'
-}
-
 Table products {
-  id integer [primary key, increment]
-  category_id integer [not null, ref: > categories.id] // Many-to-One
-  name varchar(150) [not null]
-  slug varchar(180) [unique, not null]
-  description text
-  price decimal(12,2) [not null, default: 0.00]
-  stock integer [not null, default: 0]
-  is_active boolean [default: true]
+  id bigint [pk, increment]
+  nama_produk varchar(255) [not null]
+  kategori varchar(100) [not null, note: 'Contoh: Kaos, Kemeja, Celana, Jaket, Hoodie']
+  deskripsi text [null]
+  harga decimal(12, 2) [not null, note: 'Harga produk per satuan (Rupiah)']
+  stok integer [not null, default: 0, note: 'Jumlah stok barang yang tersedia']
+  ukuran varchar(50) [null, note: 'Ukuran fashion: S, M, L, XL, XXL, All Size']
+  warna varchar(50) [null, note: 'Varian warna: Hitam, Putih, Navy, Sage, dll']
   created_at timestamp [default: `now()`]
-  updated_at timestamp
 
-  indexes {
-    category_id
-    price
-    is_active
-  }
-
-  Note: 'Daftar produk yang dijual'
+  Note: 'Tabel katalog produk fashion'
 }
 
 // --------------------------------------------------------
-// TABEL: TRANSAKSI & PESANAN
+// 3. Tabel Orders (Pesanan / Transaksi Pembelian)
+// Menghubungkan pembeli (users) dengan produk yang dibeli (products)
 // --------------------------------------------------------
 Table orders {
-  id integer [primary key, increment]
-  order_code varchar(30) [unique, not null]
-  user_id integer [not null, ref: > users.id] // Many-to-One
-  total_amount decimal(12,2) [not null, default: 0.00]
-  status order_status [default: 'pending']
-  shipping_address text [not null]
-  created_at timestamp [default: `now()`]
-  updated_at timestamp
+  id bigint [pk, increment]
+  user_id bigint [not null, note: 'Foreign key merujuk ke users.id']
+  product_id bigint [not null, note: 'Foreign key merujuk ke products.id']
+  jumlah integer [not null, default: 1, note: 'Jumlah item pakaian yang dibeli']
+  total_harga decimal(12, 2) [not null, note: 'Total biaya pembelian']
+  status_pesanan varchar(50) [default: 'pending', note: 'Status: pending | diproses | dikirim | selesai | dibatalkan']
+  metode_pembayaran varchar(50) [not null, note: 'Metode: transfer_bank | cod | e-wallet']
+  tanggal_pesanan timestamp [default: `now()`]
 
-  indexes {
-    user_id
-    status
-    order_code
-  }
-
-  Note: 'Header transaksi pesanan user'
-}
-
-Table order_items {
-  id integer [primary key, increment]
-  order_id integer [not null, ref: > orders.id] // Relasi ke orders
-  product_id integer [not null, ref: > products.id] // Relasi ke products
-  quantity integer [not null, default: 1]
-  unit_price decimal(12,2) [not null]
-  subtotal decimal(12,2) [not null]
-
-  indexes {
-    order_id
-    product_id
-  }
-
-  Note: 'Item rincian belanja dalam setiap pesanan'
-}
-
-Table payments {
-  id integer [primary key, increment]
-  order_id integer [unique, not null, ref: - orders.id] // One-to-One
-  payment_method payment_method [not null]
-  amount decimal(12,2) [not null]
-  payment_status payment_status [default: 'unpaid']
-  transaction_time timestamp
-
-  Note: 'Rekam pembayaran untuk setiap order (Relasi 1:1)'
+  Note: 'Tabel transaksi pemesanan produk fashion oleh pelanggan'
 }
 
 // --------------------------------------------------------
-// KELOMPOK TABEL (TableGroup di dbdiagram.io)
+// Relasi Antar Tabel (Relationships)
 // --------------------------------------------------------
-TableGroup MasterData {
-  users
-  user_profiles
-  categories
-  products
-}
 
-TableGroup Transaksi {
-  orders
-  order_items
-  payments
-}
+// Relasi 1: Satu user dapat melakukan banyak transaksi pesanan
+Ref: users.id < orders.user_id [delete: cascade]
+
+// Relasi 2: Satu produk dapat dibeli di dalam banyak transaksi pesanan
+Ref: products.id < orders.product_id [delete: cascade]
