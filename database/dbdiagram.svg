@@ -1,29 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 820" width="100%" height="100%" style="background-color: #070b14; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1780 1140" width="100%" height="100%" style="background-color: #070b14; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
   <defs>
     <!-- Background Grid Pattern -->
-    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1"/>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.025)" stroke-width="1"/>
     </pattern>
 
-    <!-- Filters & Shadows -->
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.6"/>
+    <!-- Card Shadow -->
+    <filter id="card-shadow" x="-5%" y="-5%" width="115%" height="118%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.6"/>
     </filter>
 
-    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-    </filter>
-
-    <!-- Gradient Headers -->
-    <linearGradient id="header-master" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#1e293b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+    <!-- Gradients for Headers -->
+    <linearGradient id="hdr-master" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
     </linearGradient>
 
-    <linearGradient id="header-trans" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#1e1b4b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+    <linearGradient id="hdr-variant" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+
+    <linearGradient id="hdr-customer" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+
+    <linearGradient id="hdr-trans" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+
+    <linearGradient id="hdr-logistic" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
     </linearGradient>
   </defs>
 
@@ -31,247 +41,611 @@
   <rect width="100%" height="100%" fill="#070b14"/>
   <rect width="100%" height="100%" fill="url(#grid)"/>
 
-  <!-- Watermark & Title -->
-  <text x="45" y="42" fill="#ffffff" font-size="20" font-weight="bold" letter-spacing="0.5">Cihuy Store &bull; Database Schema ERD Diagram</text>
-  <text x="45" y="64" fill="#38bdf8" font-size="12" font-weight="600">SEMUA GARIS HUBUNGAN &amp; RELASI DATABASE AKTIF (1:1, 1:N, N:M)</text>
-
   <!-- ======================================================== -->
-  <!-- KONEKSI RELASI (GARIS & LABEL BADGE RELASI) -->
+  <!-- TITLE HEADER BANNER (Berdiri Sendiri di Atas Tanpa Menabrak Tabel) -->
   <!-- ======================================================== -->
-
-  <!-- 1. categories.id -> products.category_id (1:N) -->
-  <path d="M 270 148 L 340 172" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="none"/>
-  <circle cx="270" cy="148" r="4.5" fill="#38bdf8"/>
-  <circle cx="340" cy="172" r="4.5" fill="#38bdf8"/>
-  <g transform="translate(285, 142)">
-    <rect width="40" height="20" rx="5" fill="#0b1324" stroke="#38bdf8" stroke-width="1.5"/>
-    <text x="20" y="14" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
+  <g transform="translate(50, 28)">
+    <rect width="40" height="40" rx="10" fill="url(#hdr-master)"/>
+    <text x="20" y="26" fill="#ffffff" font-size="18" font-weight="900" text-anchor="middle">BD</text>
+    <text x="54" y="20" fill="#ffffff" font-size="20" font-weight="800" letter-spacing="0.3">Fashion Store &bull; Database Schema ERD (12 Entitas BRD)</text>
+    <text x="54" y="38" fill="#38bdf8" font-size="11" font-weight="600" letter-spacing="0.5">Relasi Lengkap: Pelanggan, Kategori, Warna, Ukuran, Produk, Varian, Voucher, Pesanan, Detail, Bayar, Kurir, Pengiriman</text>
   </g>
 
-  <!-- 2. users.id -> user_profiles.user_id (1:1) -->
-  <path d="M 880 148 L 950 172" fill="none" stroke="#c084fc" stroke-width="2.5"/>
-  <circle cx="880" cy="148" r="4.5" fill="#c084fc"/>
-  <circle cx="950" cy="172" r="4.5" fill="#c084fc"/>
-  <g transform="translate(895, 142)">
-    <rect width="40" height="20" rx="5" fill="#0b1324" stroke="#c084fc" stroke-width="1.5"/>
-    <text x="20" y="14" fill="#c084fc" font-size="10" font-weight="bold" text-anchor="middle">1 : 1</text>
-  </g>
+  <!-- Legend Badge Info di Kanan Atas -->
+  <g transform="translate(1360, 32)">
+    <rect width="360" height="34" rx="8" fill="#0f172a" stroke="rgba(255,255,255,0.08)"/>
+    <!-- PK Badge -->
+    <rect x="14" y="8" width="24" height="18" rx="4" fill="#f59e0b"/>
+    <text x="26" y="21" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="21" fill="#cbd5e1" font-size="11">Primary</text>
 
-  <!-- 3. users.id -> orders.user_id (1:N) -->
-  <path d="M 720 280 C 720 340, 480 320, 480 432" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
-  <circle cx="720" cy="275" r="4.5" fill="#38bdf8"/>
-  <circle cx="480" cy="432" r="4.5" fill="#38bdf8"/>
-  <g transform="translate(565, 335)">
-    <rect width="42" height="20" rx="5" fill="#0b1324" stroke="#38bdf8" stroke-width="1.5"/>
-    <text x="21" y="14" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
-  </g>
+    <!-- FK Badge -->
+    <rect x="100" y="8" width="24" height="18" rx="4" fill="#0284c7"/>
+    <text x="112" y="21" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="130" y="21" fill="#cbd5e1" font-size="11">Foreign</text>
 
-  <!-- 4. products.id -> order_items.product_id (1:N) -->
-  <path d="M 580 148 C 640 148, 640 400, 650 495" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
-  <circle cx="580" cy="148" r="4.5" fill="#38bdf8"/>
-  <circle cx="650" cy="495" r="4.5" fill="#38bdf8"/>
-  <g transform="translate(615, 290)">
-    <rect width="42" height="20" rx="5" fill="#0b1324" stroke="#38bdf8" stroke-width="1.5"/>
-    <text x="21" y="14" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
-  </g>
+    <!-- UK Badge -->
+    <rect x="185" y="8" width="24" height="18" rx="4" fill="#10b981"/>
+    <text x="197" y="21" fill="#000" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+    <text x="215" y="21" fill="#cbd5e1" font-size="11">Unique</text>
 
-  <!-- 5. orders.id -> order_items.order_id (1:N) -->
-  <path d="M 580 435 L 650 470" fill="none" stroke="#10b981" stroke-width="2.5"/>
-  <circle cx="580" cy="435" r="4.5" fill="#10b981"/>
-  <circle cx="650" cy="470" r="4.5" fill="#10b981"/>
-  <g transform="translate(595, 435)">
-    <rect width="42" height="20" rx="5" fill="#0b1324" stroke="#10b981" stroke-width="1.5"/>
-    <text x="21" y="14" fill="#10b981" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
-  </g>
-
-  <!-- 6. orders.id -> payments.order_id (1:1) -->
-  <path d="M 460 635 C 460 700, 950 700, 950 470" fill="none" stroke="#c084fc" stroke-width="2.5"/>
-  <circle cx="460" cy="635" r="4.5" fill="#c084fc"/>
-  <circle cx="950" cy="470" r="4.5" fill="#c084fc"/>
-  <g transform="translate(690, 685)">
-    <rect width="42" height="20" rx="5" fill="#0b1324" stroke="#c084fc" stroke-width="1.5"/>
-    <text x="21" y="14" fill="#c084fc" font-size="10" font-weight="bold" text-anchor="middle">1 : 1</text>
+    <!-- Relasi 1:N -->
+    <circle cx="280" cy="17" r="4" fill="#38bdf8"/>
+    <text x="290" y="21" fill="#38bdf8" font-size="11" font-weight="bold">1:N &bull; 1:1</text>
   </g>
 
 
   <!-- ======================================================== -->
-  <!-- TABEL 1: CATEGORIES -->
+  <!-- KONEKTOR GARIS RELASI (Bersih, Rapi, Tanpa Bertabrakan) -->
   <!-- ======================================================== -->
-  <g transform="translate(50, 95)" filter="url(#shadow)">
-    <rect width="220" height="150" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-    <path d="M 0 10 Q 0 0 10 0 L 210 0 Q 220 0 220 10 L 220 36 L 0 36 Z" fill="url(#header-master)"/>
-    <text x="14" y="23" fill="#38bdf8" font-size="13" font-weight="bold">categories</text>
-    <text x="206" y="22" fill="#94a3b8" font-size="10" text-anchor="end">Master</text>
-    <line x1="0" y1="36" x2="220" y2="36" stroke="rgba(255,255,255,0.08)"/>
 
-    <!-- Columns -->
-    <rect x="14" y="47" width="22" height="15" rx="3" fill="#eab308"/><text x="25" y="58" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">PK</text>
-    <text x="42" y="59" fill="#f8fafc" font-size="12" font-weight="bold">id</text><text x="206" y="59" fill="#64748b" font-size="11" text-anchor="end">integer</text>
-
-    <text x="14" y="84" fill="#f8fafc" font-size="12">name</text><text x="206" y="84" fill="#64748b" font-size="11" text-anchor="end">varchar(100)</text>
-    <rect x="14" y="97" width="22" height="15" rx="3" fill="#10b981"/><text x="25" y="108" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">UK</text>
-    <text x="42" y="109" fill="#f8fafc" font-size="12">slug</text><text x="206" y="109" fill="#64748b" font-size="11" text-anchor="end">varchar(120)</text>
-    <text x="14" y="134" fill="#94a3b8" font-size="12">description</text><text x="206" y="134" fill="#64748b" font-size="11" text-anchor="end">text</text>
+  <!-- 1. Kategori (bottom col 1) -> Produk (top col 1): M 215 225 L 215 275 -->
+  <path d="M 215 225 L 215 275" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+  <circle cx="215" cy="225" r="4.5" fill="#38bdf8"/>
+  <circle cx="215" cy="275" r="4.5" fill="#38bdf8"/>
+  <g transform="translate(193, 240)">
+    <rect width="44" height="20" rx="5" fill="#0b1324" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="22" y="14" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
   </g>
 
-  <!-- ======================================================== -->
-  <!-- TABEL 2: PRODUCTS -->
-  <!-- ======================================================== -->
-  <g transform="translate(340, 95)" filter="url(#shadow)">
-    <rect width="240" height="235" rx="10" fill="#0f172a" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.5"/>
-    <path d="M 0 10 Q 0 0 10 0 L 230 0 Q 240 0 240 10 L 240 36 L 0 36 Z" fill="url(#header-master)"/>
-    <text x="14" y="23" fill="#38bdf8" font-size="13" font-weight="bold">products</text>
-    <text x="226" y="22" fill="#94a3b8" font-size="10" text-anchor="end">Katalog</text>
-    <line x1="0" y1="36" x2="240" y2="36" stroke="rgba(255,255,255,0.08)"/>
-
-    <!-- Columns -->
-    <rect x="14" y="47" width="22" height="15" rx="3" fill="#eab308"/><text x="25" y="58" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">PK</text>
-    <text x="42" y="59" fill="#f8fafc" font-size="12" font-weight="bold">id</text><text x="226" y="59" fill="#64748b" font-size="11" text-anchor="end">integer</text>
-
-    <rect x="14" y="72" width="22" height="15" rx="3" fill="#0284c7"/><text x="25" y="83" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle">FK</text>
-    <text x="42" y="84" fill="#38bdf8" font-size="12" font-weight="bold">category_id</text><text x="226" y="84" fill="#38bdf8" font-size="11" text-anchor="end">&gt; categories</text>
-
-    <text x="14" y="109" fill="#f8fafc" font-size="12">name</text><text x="226" y="109" fill="#64748b" font-size="11" text-anchor="end">varchar(150)</text>
-    <rect x="14" y="122" width="22" height="15" rx="3" fill="#10b981"/><text x="25" y="133" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">UK</text>
-    <text x="42" y="134" fill="#f8fafc" font-size="12">slug</text><text x="226" y="134" fill="#64748b" font-size="11" text-anchor="end">varchar(180)</text>
-
-    <text x="14" y="159" fill="#f8fafc" font-size="12">price</text><text x="226" y="159" fill="#64748b" font-size="11" text-anchor="end">decimal(12,2)</text>
-    <text x="14" y="184" fill="#f8fafc" font-size="12">stock</text><text x="226" y="184" fill="#64748b" font-size="11" text-anchor="end">integer</text>
-    <text x="14" y="209" fill="#94a3b8" font-size="12">is_active</text><text x="226" y="209" fill="#64748b" font-size="11" text-anchor="end">boolean</text>
+  <!-- 2. Produk (right side x: 380, y: 390) -> Varian Produk (left side x: 470, y: 390) -->
+  <path d="M 380 390 L 470 390" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+  <circle cx="380" cy="390" r="4.5" fill="#38bdf8"/>
+  <circle cx="470" cy="390" r="4.5" fill="#38bdf8"/>
+  <g transform="translate(403, 379)">
+    <rect width="44" height="22" rx="5" fill="#0b1324" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="22" y="15" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
   </g>
 
-  <!-- ======================================================== -->
-  <!-- TABEL 3: USERS -->
-  <!-- ======================================================== -->
-  <g transform="translate(650, 95)" filter="url(#shadow)">
-    <rect width="230" height="185" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-    <path d="M 0 10 Q 0 0 10 0 L 220 0 Q 230 0 230 10 L 230 36 L 0 36 Z" fill="url(#header-master)"/>
-    <text x="14" y="23" fill="#38bdf8" font-size="13" font-weight="bold">users</text>
-    <text x="216" y="22" fill="#94a3b8" font-size="10" text-anchor="end">Master</text>
-    <line x1="0" y1="36" x2="230" y2="36" stroke="rgba(255,255,255,0.08)"/>
-
-    <!-- Columns -->
-    <rect x="14" y="47" width="22" height="15" rx="3" fill="#eab308"/><text x="25" y="58" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">PK</text>
-    <text x="42" y="59" fill="#f8fafc" font-size="12" font-weight="bold">id</text><text x="216" y="59" fill="#64748b" font-size="11" text-anchor="end">integer</text>
-
-    <text x="14" y="84" fill="#f8fafc" font-size="12">name</text><text x="216" y="84" fill="#64748b" font-size="11" text-anchor="end">varchar(100)</text>
-    <rect x="14" y="97" width="22" height="15" rx="3" fill="#10b981"/><text x="25" y="108" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">UK</text>
-    <text x="42" y="109" fill="#f8fafc" font-size="12">email</text><text x="216" y="109" fill="#64748b" font-size="11" text-anchor="end">varchar(150)</text>
-
-    <text x="14" y="134" fill="#94a3b8" font-size="12">password</text><text x="216" y="134" fill="#64748b" font-size="11" text-anchor="end">varchar(255)</text>
-    <text x="14" y="159" fill="#a855f7" font-size="12">role</text><text x="216" y="159" fill="#a855f7" font-size="11" text-anchor="end">enum</text>
+  <!-- 3. Warna (right side x: 380, y: 690) -> Varian Produk (x: 470, y: 450) -->
+  <path d="M 380 690 L 425 690 L 425 450 L 470 450" fill="none" stroke="#38bdf8" stroke-width="2"/>
+  <circle cx="380" cy="690" r="4.5" fill="#38bdf8"/>
+  <circle cx="470" cy="450" r="4.5" fill="#38bdf8"/>
+  <g transform="translate(403, 560)">
+    <rect width="44" height="20" rx="5" fill="#0b1324" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="22" y="14" fill="#38bdf8" font-size="9" font-weight="bold" text-anchor="middle">1 : N</text>
   </g>
 
-  <!-- ======================================================== -->
-  <!-- TABEL 4: USER_PROFILES -->
-  <!-- ======================================================== -->
-  <g transform="translate(950, 95)" filter="url(#shadow)">
-    <rect width="230" height="180" rx="10" fill="#0f172a" stroke="rgba(168, 85, 247, 0.4)" stroke-width="1.5"/>
-    <path d="M 0 10 Q 0 0 10 0 L 220 0 Q 230 0 230 10 L 230 36 L 0 36 Z" fill="url(#header-master)"/>
-    <text x="14" y="23" fill="#c084fc" font-size="13" font-weight="bold">user_profiles</text>
-    <text x="216" y="22" fill="#c084fc" font-size="10" text-anchor="end">1:1 Extension</text>
-    <line x1="0" y1="36" x2="230" y2="36" stroke="rgba(255,255,255,0.08)"/>
-
-    <!-- Columns -->
-    <rect x="14" y="47" width="22" height="15" rx="3" fill="#eab308"/><text x="25" y="58" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">PK</text>
-    <text x="42" y="59" fill="#f8fafc" font-size="12" font-weight="bold">id</text><text x="216" y="59" fill="#64748b" font-size="11" text-anchor="end">integer</text>
-
-    <rect x="14" y="72" width="22" height="15" rx="3" fill="#a855f7"/><text x="25" y="83" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle">FK</text>
-    <text x="42" y="84" fill="#c084fc" font-size="12" font-weight="bold">user_id</text><text x="216" y="84" fill="#c084fc" font-size="11" text-anchor="end">- users (1:1)</text>
-
-    <text x="14" y="109" fill="#f8fafc" font-size="12">phone</text><text x="216" y="109" fill="#64748b" font-size="11" text-anchor="end">varchar(20)</text>
-    <text x="14" y="134" fill="#f8fafc" font-size="12">city</text><text x="216" y="134" fill="#64748b" font-size="11" text-anchor="end">varchar(100)</text>
-    <text x="14" y="159" fill="#94a3b8" font-size="12">address</text><text x="216" y="159" fill="#64748b" font-size="11" text-anchor="end">text</text>
+  <!-- 4. Ukuran (right side x: 380, y: 920) -> Varian Produk (x: 470, y: 500) -->
+  <path d="M 380 920 L 445 920 L 445 500 L 470 500" fill="none" stroke="#38bdf8" stroke-width="2"/>
+  <circle cx="380" cy="920" r="4.5" fill="#38bdf8"/>
+  <circle cx="470" cy="500" r="4.5" fill="#38bdf8"/>
+  <g transform="translate(423, 760)">
+    <rect width="44" height="20" rx="5" fill="#0b1324" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="22" y="14" fill="#38bdf8" font-size="9" font-weight="bold" text-anchor="middle">1 : N</text>
   </g>
 
-  <!-- ======================================================== -->
-  <!-- TABEL 5: ORDERS -->
-  <!-- ======================================================== -->
-  <g transform="translate(340, 395)" filter="url(#shadow)">
-    <rect width="240" height="240" rx="10" fill="#0f172a" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.5"/>
-    <path d="M 0 10 Q 0 0 10 0 L 230 0 Q 240 0 240 10 L 240 36 L 0 36 Z" fill="url(#header-trans)"/>
-    <text x="14" y="23" fill="#38bdf8" font-size="13" font-weight="bold">orders</text>
-    <text x="226" y="22" fill="#38bdf8" font-size="10" text-anchor="end">Transaksi</text>
-    <line x1="0" y1="36" x2="240" y2="36" stroke="rgba(255,255,255,0.08)"/>
-
-    <!-- Columns -->
-    <rect x="14" y="47" width="22" height="15" rx="3" fill="#eab308"/><text x="25" y="58" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">PK</text>
-    <text x="42" y="59" fill="#f8fafc" font-size="12" font-weight="bold">id</text><text x="226" y="59" fill="#64748b" font-size="11" text-anchor="end">integer</text>
-
-    <rect x="14" y="72" width="22" height="15" rx="3" fill="#10b981"/><text x="25" y="83" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">UK</text>
-    <text x="42" y="84" fill="#f8fafc" font-size="12">order_code</text><text x="226" y="84" fill="#64748b" font-size="11" text-anchor="end">varchar(30)</text>
-
-    <rect x="14" y="97" width="22" height="15" rx="3" fill="#0284c7"/><text x="25" y="108" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle">FK</text>
-    <text x="42" y="109" fill="#38bdf8" font-size="12" font-weight="bold">user_id</text><text x="226" y="109" fill="#38bdf8" font-size="11" text-anchor="end">&gt; users</text>
-
-    <text x="14" y="134" fill="#f8fafc" font-size="12">total_amount</text><text x="226" y="134" fill="#64748b" font-size="11" text-anchor="end">decimal(12,2)</text>
-    <text x="14" y="159" fill="#eab308" font-size="12">status</text><text x="226" y="159" fill="#eab308" font-size="11" text-anchor="end">enum</text>
-    <text x="14" y="184" fill="#94a3b8" font-size="12">shipping_address</text><text x="226" y="184" fill="#64748b" font-size="11" text-anchor="end">text</text>
-    <text x="14" y="209" fill="#64748b" font-size="12">created_at</text><text x="226" y="209" fill="#64748b" font-size="11" text-anchor="end">timestamp</text>
+  <!-- 5. Varian Produk (bottom x: 635, y: 565) -> Detail Pesanan (top x: 635, y: 655) -->
+  <path d="M 635 565 L 635 655" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
+  <circle cx="635" cy="565" r="4.5" fill="#60a5fa"/>
+  <circle cx="635" cy="655" r="4.5" fill="#60a5fa"/>
+  <g transform="translate(613, 600)">
+    <rect width="44" height="20" rx="5" fill="#0c172e" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="22" y="14" fill="#60a5fa" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
   </g>
 
-  <!-- ======================================================== -->
-  <!-- TABEL 6: ORDER_ITEMS -->
-  <!-- ======================================================== -->
-  <g transform="translate(650, 395)" filter="url(#shadow)">
-    <rect width="240" height="215" rx="10" fill="#0f172a" stroke="rgba(16, 185, 129, 0.4)" stroke-width="1.5"/>
-    <path d="M 0 10 Q 0 0 10 0 L 230 0 Q 240 0 240 10 L 240 36 L 0 36 Z" fill="url(#header-trans)"/>
-    <text x="14" y="23" fill="#34d399" font-size="13" font-weight="bold">order_items</text>
-    <text x="226" y="22" fill="#34d399" font-size="10" text-anchor="end">Pivot N:M</text>
-    <line x1="0" y1="36" x2="240" y2="36" stroke="rgba(255,255,255,0.08)"/>
-
-    <!-- Columns -->
-    <rect x="14" y="47" width="22" height="15" rx="3" fill="#eab308"/><text x="25" y="58" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">PK</text>
-    <text x="42" y="59" fill="#f8fafc" font-size="12" font-weight="bold">id</text><text x="226" y="59" fill="#64748b" font-size="11" text-anchor="end">integer</text>
-
-    <rect x="14" y="72" width="22" height="15" rx="3" fill="#10b981"/><text x="25" y="83" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle">FK</text>
-    <text x="42" y="84" fill="#34d399" font-size="12" font-weight="bold">order_id</text><text x="226" y="84" fill="#34d399" font-size="11" text-anchor="end">&gt; orders</text>
-
-    <rect x="14" y="97" width="22" height="15" rx="3" fill="#0284c7"/><text x="25" y="108" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle">FK</text>
-    <text x="42" y="109" fill="#38bdf8" font-size="12" font-weight="bold">product_id</text><text x="226" y="109" fill="#38bdf8" font-size="11" text-anchor="end">&gt; products</text>
-
-    <text x="14" y="134" fill="#f8fafc" font-size="12">quantity</text><text x="226" y="134" fill="#64748b" font-size="11" text-anchor="end">integer</text>
-    <text x="14" y="159" fill="#f8fafc" font-size="12">unit_price</text><text x="226" y="159" fill="#64748b" font-size="11" text-anchor="end">decimal(12,2)</text>
-    <text x="14" y="184" fill="#10b981" font-size="12" font-weight="bold">subtotal</text><text x="226" y="184" fill="#10b981" font-size="11" text-anchor="end">decimal(12,2)</text>
+  <!-- 6. Pelanggan (bottom x: 1060, y: 345) -> Pesanan (top x: 1060, y: 405) -->
+  <path d="M 1060 345 L 1060 405" fill="none" stroke="#c084fc" stroke-width="2.5"/>
+  <circle cx="1060" cy="345" r="4.5" fill="#c084fc"/>
+  <circle cx="1060" cy="405" r="4.5" fill="#c084fc"/>
+  <g transform="translate(1038, 365)">
+    <rect width="44" height="20" rx="5" fill="#1b122e" stroke="#c084fc" stroke-width="1.5"/>
+    <text x="22" y="14" fill="#c084fc" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
   </g>
 
-  <!-- ======================================================== -->
-  <!-- TABEL 7: PAYMENTS -->
-  <!-- ======================================================== -->
-  <g transform="translate(950, 395)" filter="url(#shadow)">
-    <rect width="230" height="215" rx="10" fill="#0f172a" stroke="rgba(168, 85, 247, 0.4)" stroke-width="1.5"/>
-    <path d="M 0 10 Q 0 0 10 0 L 220 0 Q 230 0 230 10 L 230 36 L 0 36 Z" fill="url(#header-trans)"/>
-    <text x="14" y="23" fill="#c084fc" font-size="13" font-weight="bold">payments</text>
-    <text x="216" y="22" fill="#c084fc" font-size="10" text-anchor="end">1:1 Payment</text>
-    <line x1="0" y1="36" x2="230" y2="36" stroke="rgba(255,255,255,0.08)"/>
-
-    <!-- Columns -->
-    <rect x="14" y="47" width="22" height="15" rx="3" fill="#eab308"/><text x="25" y="58" fill="#000" font-size="9" font-weight="bold" text-anchor="middle">PK</text>
-    <text x="42" y="59" fill="#f8fafc" font-size="12" font-weight="bold">id</text><text x="216" y="59" fill="#64748b" font-size="11" text-anchor="end">integer</text>
-
-    <rect x="14" y="72" width="22" height="15" rx="3" fill="#a855f7"/><text x="25" y="83" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle">FK</text>
-    <text x="42" y="84" fill="#c084fc" font-size="12" font-weight="bold">order_id</text><text x="216" y="84" fill="#c084fc" font-size="11" text-anchor="end">- orders (1:1)</text>
-
-    <text x="14" y="109" fill="#f8fafc" font-size="12">payment_method</text><text x="216" y="109" fill="#64748b" font-size="11" text-anchor="end">enum</text>
-    <text x="14" y="134" fill="#f8fafc" font-size="12">amount</text><text x="216" y="134" fill="#64748b" font-size="11" text-anchor="end">decimal(12,2)</text>
-    <text x="14" y="159" fill="#10b981" font-size="12">payment_status</text><text x="216" y="159" fill="#10b981" font-size="11" text-anchor="end">enum</text>
-    <text x="14" y="184" fill="#64748b" font-size="12">transaction_time</text><text x="216" y="184" fill="#64748b" font-size="11" text-anchor="end">timestamp</text>
+  <!-- 7. Voucher (bottom x: 1515, y: 345) -> Pesanan (right top x: 1230, y: 440) -->
+  <path d="M 1515 345 L 1515 375 L 1230 375 L 1230 440" fill="none" stroke="#c084fc" stroke-width="2" stroke-dasharray="4 4"/>
+  <circle cx="1515" cy="345" r="4.5" fill="#c084fc"/>
+  <circle cx="1230" cy="440" r="4.5" fill="#c084fc"/>
+  <g transform="translate(1335, 364)">
+    <rect width="66" height="20" rx="5" fill="#1b122e" stroke="#c084fc" stroke-width="1.5"/>
+    <text x="33" y="14" fill="#c084fc" font-size="9" font-weight="bold" text-anchor="middle">1:N (opsional)</text>
   </g>
 
-  <!-- Footer Legend -->
-  <g transform="translate(50, 740)">
-    <rect width="1130" height="50" rx="8" fill="rgba(15, 23, 42, 0.7)" stroke="rgba(255,255,255,0.08)"/>
-    <text x="25" y="30" fill="#94a3b8" font-size="12" font-weight="bold">KETERANGAN RELASI:</text>
-    
-    <circle cx="195" cy="25" r="5" fill="#38bdf8"/>
-    <text x="210" y="30" fill="#f8fafc" font-size="12">Many-to-One (&gt;)</text>
-
-    <circle cx="370" cy="25" r="5" fill="#c084fc"/>
-    <text x="385" y="30" fill="#f8fafc" font-size="12">One-to-One (-)</text>
-
-    <circle cx="530" cy="25" r="5" fill="#10b981"/>
-    <text x="545" y="30" fill="#f8fafc" font-size="12">Pivot N:M (Orders &amp; Products via Order Items)</text>
-
-    <text x="1100" y="30" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="end">&check; 6 Foreign Key Active</text>
+  <!-- 8. Pesanan (left x: 890, y: 640) -> Detail Pesanan (right x: 800, y: 740) -->
+  <path d="M 890 640 L 845 640 L 845 740 L 800 740" fill="none" stroke="#10b981" stroke-width="2.5"/>
+  <circle cx="890" cy="640" r="4.5" fill="#10b981"/>
+  <circle cx="800" cy="740" r="4.5" fill="#10b981"/>
+  <g transform="translate(823, 678)">
+    <rect width="44" height="20" rx="5" fill="#081e18" stroke="#10b981" stroke-width="1.5"/>
+    <text x="22" y="14" fill="#10b981" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
   </g>
+
+  <!-- 9. Pesanan (bottom x: 1060, y: 715) -> Pembayaran (top x: 1060, y: 785) -->
+  <path d="M 1060 715 L 1060 785" fill="none" stroke="#10b981" stroke-width="2.5"/>
+  <circle cx="1060" cy="715" r="4.5" fill="#10b981"/>
+  <circle cx="1060" cy="785" r="4.5" fill="#10b981"/>
+  <g transform="translate(1038, 740)">
+    <rect width="44" height="20" rx="5" fill="#081e18" stroke="#10b981" stroke-width="1.5"/>
+    <text x="22" y="14" fill="#10b981" font-size="10" font-weight="bold" text-anchor="middle">1 : 1</text>
+  </g>
+
+  <!-- 10. Pesanan (right x: 1230, y: 580) -> Pengiriman (left x: 1350, y: 580) -->
+  <path d="M 1230 580 L 1350 580" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <circle cx="1230" cy="580" r="4.5" fill="#f59e0b"/>
+  <circle cx="1350" cy="580" r="4.5" fill="#f59e0b"/>
+  <g transform="translate(1268, 569)">
+    <rect width="44" height="22" rx="5" fill="#241708" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="22" y="15" fill="#f59e0b" font-size="10" font-weight="bold" text-anchor="middle">1 : 1</text>
+  </g>
+
+  <!-- 11. Kurir (top x: 1515, y: 785) -> Pengiriman (bottom x: 1515, y: 725) -->
+  <path d="M 1515 785 L 1515 725" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <circle cx="1515" cy="785" r="4.5" fill="#f59e0b"/>
+  <circle cx="1515" cy="725" r="4.5" fill="#f59e0b"/>
+  <g transform="translate(1493, 745)">
+    <rect width="44" height="20" rx="5" fill="#241708" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="22" y="14" fill="#f59e0b" font-size="10" font-weight="bold" text-anchor="middle">1 : N</text>
+  </g>
+
+
+  <!-- ======================================================== -->
+  <!-- KOLOM 1: MASTER DATA (Kategori, Produk, Warna, Ukuran)   -->
+  <!-- ======================================================== -->
+
+  <!-- 1. KATEGORI (x: 50, y: 95, w: 330, h: 130) -->
+  <g transform="translate(50, 95)" filter="url(#card-shadow)">
+    <rect width="330" height="130" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 320 0 Q 330 0 330 10 L 330 38 L 0 38 Z" fill="url(#hdr-master)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">kategori</text>
+    <rect x="255" y="10" width="60" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="285" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Master</text>
+
+    <!-- Row 1: PK id_kategori -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_kategori</text>
+    <text x="314" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- Row 2: nama_kategori -->
+    <text x="16" y="87" fill="#cbd5e1" font-size="12">nama_kategori</text>
+    <text x="314" y="87" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+
+    <!-- Row 3: deskripsi -->
+    <text x="16" y="113" fill="#94a3b8" font-size="12">deskripsi</text>
+    <text x="314" y="113" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">TEXT</text>
+  </g>
+
+  <!-- 2. PRODUK (x: 50, y: 275, w: 330, h: 260) -->
+  <g transform="translate(50, 275)" filter="url(#card-shadow)">
+    <rect width="330" height="260" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 320 0 Q 330 0 330 10 L 330 38 L 0 38 Z" fill="url(#hdr-master)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">produk</text>
+    <rect x="255" y="10" width="60" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="285" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Katalog</text>
+
+    <!-- Row 1: PK id_produk -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_produk</text>
+    <text x="314" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- Row 2: FK id_kategori -->
+    <rect x="16" y="73" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="85" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="86" fill="#38bdf8" font-size="12" font-weight="600">id_kategori</text>
+    <text x="314" y="86" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- Row 3: nama_produk -->
+    <text x="16" y="111" fill="#cbd5e1" font-size="12">nama_produk</text>
+    <text x="314" y="111" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(150)</text>
+
+    <!-- Row 4: deskripsi -->
+    <text x="16" y="136" fill="#94a3b8" font-size="12">deskripsi</text>
+    <text x="314" y="136" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">TEXT</text>
+
+    <!-- Row 5: harga -->
+    <text x="16" y="161" fill="#cbd5e1" font-size="12">harga</text>
+    <text x="314" y="161" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+
+    <!-- Row 6: bahan -->
+    <text x="16" y="186" fill="#94a3b8" font-size="12">bahan</text>
+    <text x="314" y="186" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+
+    <!-- Row 7: gaya -->
+    <text x="16" y="211" fill="#94a3b8" font-size="12">gaya</text>
+    <text x="314" y="211" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+
+    <!-- Row 8: berat -->
+    <text x="16" y="236" fill="#94a3b8" font-size="12">berat (gram)</text>
+    <text x="314" y="236" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+  </g>
+
+  <!-- 3. WARNA (x: 50, y: 575, w: 330, h: 130) -->
+  <g transform="translate(50, 575)" filter="url(#card-shadow)">
+    <rect width="330" height="130" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 320 0 Q 330 0 330 10 L 330 38 L 0 38 Z" fill="url(#hdr-master)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">warna</text>
+    <rect x="255" y="10" width="60" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="285" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Master</text>
+
+    <!-- Row 1: PK id_warna -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_warna</text>
+    <text x="314" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- Row 2: nama_warna -->
+    <text x="16" y="87" fill="#cbd5e1" font-size="12">nama_warna</text>
+    <text x="314" y="87" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+
+    <!-- Row 3: kode_warna -->
+    <text x="16" y="113" fill="#94a3b8" font-size="12">kode_warna (HEX)</text>
+    <text x="314" y="113" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(10)</text>
+  </g>
+
+  <!-- 4. UKURAN (x: 50, y: 745, w: 330, h: 130) -->
+  <g transform="translate(50, 745)" filter="url(#card-shadow)">
+    <rect width="330" height="130" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 320 0 Q 330 0 330 10 L 330 38 L 0 38 Z" fill="url(#hdr-master)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">ukuran</text>
+    <rect x="255" y="10" width="60" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="285" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Master</text>
+
+    <!-- Row 1: PK id_ukuran -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_ukuran</text>
+    <text x="314" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- Row 2: nama_ukuran -->
+    <text x="16" y="87" fill="#cbd5e1" font-size="12">nama_ukuran (S/M/L/XL)</text>
+    <text x="314" y="87" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(20)</text>
+
+    <!-- Row 3: keterangan -->
+    <text x="16" y="113" fill="#94a3b8" font-size="12">keterangan</text>
+    <text x="314" y="113" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(100)</text>
+  </g>
+
+
+  <!-- ======================================================== -->
+  <!-- KOLOM 2: VARIAN & DETAIL PESANAN                        -->
+  <!-- ======================================================== -->
+
+  <!-- 5. VARIAN PRODUK (x: 470, y: 310, w: 330, h: 220) -->
+  <g transform="translate(470, 310)" filter="url(#card-shadow)">
+    <rect width="330" height="220" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 320 0 Q 330 0 330 10 L 330 38 L 0 38 Z" fill="url(#hdr-variant)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">varian_produk</text>
+    <rect x="245" y="10" width="70" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="280" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">SKU Varian</text>
+
+    <!-- PK id_varian -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_varian</text>
+    <text x="314" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- FK id_produk -->
+    <rect x="16" y="73" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="85" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="86" fill="#38bdf8" font-size="12" font-weight="600">id_produk</text>
+    <text x="314" y="86" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- FK id_warna -->
+    <rect x="16" y="98" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="110" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="111" fill="#38bdf8" font-size="12" font-weight="600">id_warna</text>
+    <text x="314" y="111" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- FK id_ukuran -->
+    <rect x="16" y="123" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="135" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="136" fill="#38bdf8" font-size="12" font-weight="600">id_ukuran</text>
+    <text x="314" y="136" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- UK kode_barang -->
+    <rect x="16" y="148" width="22" height="16" rx="3" fill="#10b981"/>
+    <text x="27" y="160" fill="#000" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+    <text x="44" y="161" fill="#34d399" font-size="12" font-weight="600">kode_barang (SKU)</text>
+    <text x="314" y="161" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+
+    <!-- stok -->
+    <text x="16" y="196" fill="#cbd5e1" font-size="12">stok</text>
+    <text x="314" y="196" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+  </g>
+
+  <!-- 6. DETAIL PESANAN (x: 470, y: 655, w: 330, h: 210) -->
+  <g transform="translate(470, 655)" filter="url(#card-shadow)">
+    <rect width="330" height="210" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 320 0 Q 330 0 330 10 L 330 38 L 0 38 Z" fill="url(#hdr-trans)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">detail_pesanan</text>
+    <rect x="245" y="10" width="70" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="280" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Item Rincian</text>
+
+    <!-- PK id_detail -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_detail</text>
+    <text x="314" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- FK id_pesanan -->
+    <rect x="16" y="73" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="85" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="86" fill="#38bdf8" font-size="12" font-weight="600">id_pesanan</text>
+    <text x="314" y="86" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- FK id_varian -->
+    <rect x="16" y="98" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="110" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="111" fill="#38bdf8" font-size="12" font-weight="600">id_varian</text>
+    <text x="314" y="111" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- jumlah -->
+    <text x="16" y="136" fill="#cbd5e1" font-size="12">jumlah</text>
+    <text x="314" y="136" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- harga_satuan -->
+    <text x="16" y="161" fill="#cbd5e1" font-size="12">harga_satuan</text>
+    <text x="314" y="161" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+
+    <!-- subtotal -->
+    <text x="16" y="186" fill="#34d399" font-size="12" font-weight="600">subtotal</text>
+    <text x="314" y="186" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+  </g>
+
+
+  <!-- ======================================================== -->
+  <!-- KOLOM 3: TRANSAKSI (Pelanggan, Pesanan, Pembayaran)      -->
+  <!-- ======================================================== -->
+
+  <!-- 7. PELANGGAN (x: 890, y: 95, w: 340, h: 235) -->
+  <g transform="translate(890, 95)" filter="url(#card-shadow)">
+    <rect width="340" height="235" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 330 0 Q 340 0 340 10 L 340 38 L 0 38 Z" fill="url(#hdr-customer)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">pelanggan</text>
+    <rect x="255" y="10" width="70" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="290" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Customer</text>
+
+    <!-- PK id_pelanggan -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_pelanggan</text>
+    <text x="324" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- nama -->
+    <text x="16" y="86" fill="#cbd5e1" font-size="12">nama</text>
+    <text x="324" y="86" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(100)</text>
+
+    <!-- UK email -->
+    <rect x="16" y="98" width="22" height="16" rx="3" fill="#10b981"/>
+    <text x="27" y="110" fill="#000" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+    <text x="44" y="111" fill="#34d399" font-size="12" font-weight="600">email</text>
+    <text x="324" y="111" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(100)</text>
+
+    <!-- password -->
+    <text x="16" y="136" fill="#94a3b8" font-size="12">password</text>
+    <text x="324" y="136" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(255)</text>
+
+    <!-- no_telepon -->
+    <text x="16" y="161" fill="#94a3b8" font-size="12">no_telepon</text>
+    <text x="324" y="161" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(20)</text>
+
+    <!-- alamat -->
+    <text x="16" y="186" fill="#94a3b8" font-size="12">alamat</text>
+    <text x="324" y="186" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">TEXT</text>
+
+    <!-- tanggal_daftar -->
+    <text x="16" y="211" fill="#94a3b8" font-size="12">tanggal_daftar</text>
+    <text x="324" y="211" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DATETIME</text>
+  </g>
+
+  <!-- 8. PESANAN (x: 890, y: 405, w: 340, h: 300) -->
+  <g transform="translate(890, 405)" filter="url(#card-shadow)">
+    <rect width="340" height="300" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 330 0 Q 340 0 340 10 L 340 38 L 0 38 Z" fill="url(#hdr-trans)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">pesanan</text>
+    <rect x="245" y="10" width="80" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="285" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Order Header</text>
+
+    <!-- PK id_pesanan -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_pesanan</text>
+    <text x="324" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- UK nomor_pesanan -->
+    <rect x="16" y="73" width="22" height="16" rx="3" fill="#10b981"/>
+    <text x="27" y="85" fill="#000" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+    <text x="44" y="86" fill="#34d399" font-size="12" font-weight="600">nomor_pesanan</text>
+    <text x="324" y="86" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+
+    <!-- FK id_pelanggan -->
+    <rect x="16" y="98" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="110" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="111" fill="#38bdf8" font-size="12" font-weight="600">id_pelanggan</text>
+    <text x="324" y="111" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- FK id_voucher -->
+    <rect x="16" y="123" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="135" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="136" fill="#38bdf8" font-size="12" font-weight="600">id_voucher (opsional)</text>
+    <text x="324" y="136" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- tanggal_pesanan -->
+    <text x="16" y="161" fill="#94a3b8" font-size="12">tanggal_pesanan</text>
+    <text x="324" y="161" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DATETIME</text>
+
+    <!-- total_harga -->
+    <text x="16" y="186" fill="#cbd5e1" font-size="12">total_harga</text>
+    <text x="324" y="186" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+
+    <!-- potongan_diskon -->
+    <text x="16" y="211" fill="#cbd5e1" font-size="12">potongan_diskon</text>
+    <text x="324" y="211" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+
+    <!-- total_bayar -->
+    <text x="16" y="236" fill="#34d399" font-size="12" font-weight="700">total_bayar</text>
+    <text x="324" y="236" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+
+    <!-- status_pesanan -->
+    <text x="16" y="261" fill="#cbd5e1" font-size="12">status_pesanan</text>
+    <text x="324" y="261" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">ENUM</text>
+
+    <!-- alamat_pengiriman -->
+    <text x="16" y="286" fill="#94a3b8" font-size="12">alamat_pengiriman</text>
+    <text x="324" y="286" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">TEXT</text>
+  </g>
+
+  <!-- 9. PEMBAYARAN (x: 890, y: 785, w: 340, h: 210) -->
+  <g transform="translate(890, 785)" filter="url(#card-shadow)">
+    <rect width="340" height="210" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 330 0 Q 340 0 340 10 L 340 38 L 0 38 Z" fill="url(#hdr-trans)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">pembayaran</text>
+    <rect x="255" y="10" width="70" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="290" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">1:1 Bayar</text>
+
+    <!-- PK id_pembayaran -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_pembayaran</text>
+    <text x="324" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- FK id_pesanan (1:1) -->
+    <rect x="16" y="73" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="85" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="86" fill="#38bdf8" font-size="12" font-weight="600">id_pesanan (1:1)</text>
+    <text x="324" y="86" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- metode_pembayaran -->
+    <text x="16" y="111" fill="#cbd5e1" font-size="12">metode_pembayaran</text>
+    <text x="324" y="111" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">ENUM</text>
+
+    <!-- jumlah_bayar -->
+    <text x="16" y="136" fill="#34d399" font-size="12" font-weight="600">jumlah_bayar</text>
+    <text x="324" y="136" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+
+    <!-- waktu_bayar -->
+    <text x="16" y="161" fill="#94a3b8" font-size="12">waktu_bayar</text>
+    <text x="324" y="161" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DATETIME</text>
+
+    <!-- status_pembayaran -->
+    <text x="16" y="186" fill="#cbd5e1" font-size="12">status_pembayaran</text>
+    <text x="324" y="186" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">ENUM</text>
+  </g>
+
+
+  <!-- ======================================================== -->
+  <!-- KOLOM 4: PROMO & LOGISTIK (Voucher, Pengiriman, Kurir)    -->
+  <!-- ======================================================== -->
+
+  <!-- 10. VOUCHER (x: 1350, y: 95, w: 330, h: 235) -->
+  <g transform="translate(1350, 95)" filter="url(#card-shadow)">
+    <rect width="330" height="235" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 320 0 Q 330 0 330 10 L 330 38 L 0 38 Z" fill="url(#hdr-customer)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">voucher</text>
+    <rect x="245" y="10" width="70" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="280" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Promo</text>
+
+    <!-- PK id_voucher -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_voucher</text>
+    <text x="314" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- UK kode_voucher -->
+    <rect x="16" y="73" width="22" height="16" rx="3" fill="#10b981"/>
+    <text x="27" y="85" fill="#000" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+    <text x="44" y="86" fill="#34d399" font-size="12" font-weight="600">kode_voucher</text>
+    <text x="314" y="86" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+
+    <!-- tipe_diskon -->
+    <text x="16" y="111" fill="#cbd5e1" font-size="12">tipe_diskon (persen/nominal)</text>
+    <text x="314" y="111" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">ENUM</text>
+
+    <!-- nilai_diskon -->
+    <text x="16" y="136" fill="#cbd5e1" font-size="12">nilai_diskon</text>
+    <text x="314" y="136" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+
+    <!-- minimal_belanja -->
+    <text x="16" y="161" fill="#94a3b8" font-size="12">minimal_belanja</text>
+    <text x="314" y="161" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+
+    <!-- status -->
+    <text x="16" y="186" fill="#94a3b8" font-size="12">status</text>
+    <text x="314" y="186" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(20)</text>
+  </g>
+
+  <!-- 11. PENGIRIMAN (x: 1350, y: 440, w: 330, h: 260) -->
+  <g transform="translate(1350, 440)" filter="url(#card-shadow)">
+    <rect width="330" height="260" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 320 0 Q 330 0 330 10 L 330 38 L 0 38 Z" fill="url(#hdr-logistic)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">pengiriman</text>
+    <rect x="245" y="10" width="70" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="280" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">1:1 Logistik</text>
+
+    <!-- PK id_pengiriman -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_pengiriman</text>
+    <text x="314" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- FK id_pesanan (1:1) -->
+    <rect x="16" y="73" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="85" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="86" fill="#38bdf8" font-size="12" font-weight="600">id_pesanan (1:1)</text>
+    <text x="314" y="86" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- FK id_kurir -->
+    <rect x="16" y="98" width="22" height="16" rx="3" fill="#0284c7"/>
+    <text x="27" y="110" fill="#fff" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+    <text x="44" y="111" fill="#38bdf8" font-size="12" font-weight="600">id_kurir</text>
+    <text x="314" y="111" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- UK nomor_resi -->
+    <rect x="16" y="123" width="22" height="16" rx="3" fill="#10b981"/>
+    <text x="27" y="135" fill="#000" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+    <text x="44" y="136" fill="#34d399" font-size="12" font-weight="600">nomor_resi</text>
+    <text x="314" y="136" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(100)</text>
+
+    <!-- status_pengiriman -->
+    <text x="16" y="161" fill="#cbd5e1" font-size="12">status_pengiriman</text>
+    <text x="314" y="161" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">ENUM</text>
+
+    <!-- biaya_ongkir -->
+    <text x="16" y="186" fill="#cbd5e1" font-size="12">biaya_ongkir</text>
+    <text x="314" y="186" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+
+    <!-- tanggal_kirim -->
+    <text x="16" y="211" fill="#94a3b8" font-size="12">tanggal_kirim</text>
+    <text x="314" y="211" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DATETIME</text>
+
+    <!-- tanggal_diterima -->
+    <text x="16" y="236" fill="#94a3b8" font-size="12">tanggal_diterima</text>
+    <text x="314" y="236" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DATETIME</text>
+  </g>
+
+  <!-- 12. KURIR (x: 1350, y: 785, w: 330, h: 180) -->
+  <g transform="translate(1350, 785)" filter="url(#card-shadow)">
+    <rect width="330" height="180" rx="10" fill="#0f172a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M 0 10 Q 0 0 10 0 L 320 0 Q 330 0 330 10 L 330 38 L 0 38 Z" fill="url(#hdr-logistic)"/>
+    <text x="16" y="24" fill="#ffffff" font-size="14" font-weight="700">kurir</text>
+    <rect x="245" y="10" width="70" height="18" rx="4" fill="rgba(255,255,255,0.15)"/>
+    <text x="280" y="23" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">Ekspedisi</text>
+
+    <!-- PK id_kurir -->
+    <rect x="16" y="48" width="22" height="16" rx="3" fill="#f59e0b"/>
+    <text x="27" y="60" fill="#000" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+    <text x="44" y="61" fill="#f1f5f9" font-size="12" font-weight="600">id_kurir</text>
+    <text x="314" y="61" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">INT</text>
+
+    <!-- nama_kurir -->
+    <text x="16" y="86" fill="#cbd5e1" font-size="12">nama_kurir</text>
+    <text x="314" y="86" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(100)</text>
+
+    <!-- UK kode_kurir -->
+    <rect x="16" y="98" width="22" height="16" rx="3" fill="#10b981"/>
+    <text x="27" y="110" fill="#000" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+    <text x="44" y="111" fill="#34d399" font-size="12" font-weight="600">kode_kurir</text>
+    <text x="314" y="111" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(20)</text>
+
+    <!-- layanan -->
+    <text x="16" y="136" fill="#94a3b8" font-size="12">layanan</text>
+    <text x="314" y="136" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">VARCHAR(50)</text>
+
+    <!-- tarif_per_kg -->
+    <text x="16" y="161" fill="#cbd5e1" font-size="12">tarif_per_kg</text>
+    <text x="314" y="161" fill="#64748b" font-size="12" font-family="'JetBrains Mono', monospace" text-anchor="end">DECIMAL(12,2)</text>
+  </g>
+
 </svg>

@@ -8,46 +8,76 @@
     "relationshipMode": "All",
     "tablePositions": [
       {
-        "name": "users",
+        "name": "kategori",
         "schemaName": "public",
-        "x": 12,
-        "y": 12
+        "x": 40,
+        "y": 40
       },
       {
-        "name": "user_profiles",
+        "name": "produk",
         "schemaName": "public",
-        "x": 516.30859375,
-        "y": 12
+        "x": 40,
+        "y": 240
       },
       {
-        "name": "categories",
+        "name": "warna",
         "schemaName": "public",
-        "x": 12,
-        "y": 314
+        "x": 40,
+        "y": 550
       },
       {
-        "name": "products",
+        "name": "ukuran",
         "schemaName": "public",
-        "x": 516.30859375,
-        "y": 314
+        "x": 40,
+        "y": 750
       },
       {
-        "name": "orders",
+        "name": "varian_produk",
         "schemaName": "public",
-        "x": 516.30859375,
-        "y": 712
+        "x": 380,
+        "y": 320
       },
       {
-        "name": "order_items",
+        "name": "detail_pesanan",
         "schemaName": "public",
-        "x": 1067.20458984375,
-        "y": 12
+        "x": 720,
+        "y": 340
       },
       {
-        "name": "payments",
+        "name": "pelanggan",
         "schemaName": "public",
-        "x": 1067.20458984375,
-        "y": 282
+        "x": 720,
+        "y": 40
+      },
+      {
+        "name": "voucher",
+        "schemaName": "public",
+        "x": 1080,
+        "y": 40
+      },
+      {
+        "name": "pesanan",
+        "schemaName": "public",
+        "x": 1060,
+        "y": 300
+      },
+      {
+        "name": "pembayaran",
+        "schemaName": "public",
+        "x": 720,
+        "y": 680
+      },
+      {
+        "name": "pengiriman",
+        "schemaName": "public",
+        "x": 1060,
+        "y": 680
+      },
+      {
+        "name": "kurir",
+        "schemaName": "public",
+        "x": 1380,
+        "y": 680
       }
     ],
     "tableGroupCollapseStates": [],
@@ -55,92 +85,167 @@
     "referencePaths": [
       {
         "firstFieldNames": [
-          "id"
+          "id_kategori"
         ],
-        "firstTableName": "users",
+        "firstTableName": "kategori",
         "firstSchemaName": "public",
         "firstRelation": "1",
         "secondFieldNames": [
-          "user_id"
+          "id_kategori"
         ],
-        "secondTableName": "user_profiles",
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_produk"
+        ],
+        "firstTableName": "produk",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_produk"
+        ],
+        "secondTableName": "varian_produk",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_warna"
+        ],
+        "firstTableName": "warna",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_warna"
+        ],
+        "secondTableName": "varian_produk",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_ukuran"
+        ],
+        "firstTableName": "ukuran",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_ukuran"
+        ],
+        "secondTableName": "varian_produk",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_varian"
+        ],
+        "firstTableName": "varian_produk",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_varian"
+        ],
+        "secondTableName": "detail_pesanan",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_pelanggan"
+        ],
+        "firstTableName": "pelanggan",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_pelanggan"
+        ],
+        "secondTableName": "pesanan",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_voucher"
+        ],
+        "firstTableName": "voucher",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_voucher"
+        ],
+        "secondTableName": "pesanan",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_pesanan"
+        ],
+        "firstTableName": "pesanan",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_pesanan"
+        ],
+        "secondTableName": "detail_pesanan",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_pesanan"
+        ],
+        "firstTableName": "pesanan",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_pesanan"
+        ],
+        "secondTableName": "pembayaran",
         "secondSchemaName": "public",
         "secondRelation": "1",
         "checkPoints": []
       },
       {
         "firstFieldNames": [
-          "id"
+          "id_pesanan"
         ],
-        "firstTableName": "categories",
+        "firstTableName": "pesanan",
         "firstSchemaName": "public",
         "firstRelation": "1",
         "secondFieldNames": [
-          "category_id"
+          "id_pesanan"
         ],
-        "secondTableName": "products",
-        "secondSchemaName": "public",
-        "secondRelation": "*",
-        "checkPoints": []
-      },
-      {
-        "firstFieldNames": [
-          "id"
-        ],
-        "firstTableName": "users",
-        "firstSchemaName": "public",
-        "firstRelation": "1",
-        "secondFieldNames": [
-          "user_id"
-        ],
-        "secondTableName": "orders",
-        "secondSchemaName": "public",
-        "secondRelation": "*",
-        "checkPoints": []
-      },
-      {
-        "firstFieldNames": [
-          "id"
-        ],
-        "firstTableName": "orders",
-        "firstSchemaName": "public",
-        "firstRelation": "1",
-        "secondFieldNames": [
-          "order_id"
-        ],
-        "secondTableName": "order_items",
-        "secondSchemaName": "public",
-        "secondRelation": "*",
-        "checkPoints": []
-      },
-      {
-        "firstFieldNames": [
-          "id"
-        ],
-        "firstTableName": "products",
-        "firstSchemaName": "public",
-        "firstRelation": "1",
-        "secondFieldNames": [
-          "product_id"
-        ],
-        "secondTableName": "order_items",
-        "secondSchemaName": "public",
-        "secondRelation": "*",
-        "checkPoints": []
-      },
-      {
-        "firstFieldNames": [
-          "id"
-        ],
-        "firstTableName": "orders",
-        "firstSchemaName": "public",
-        "firstRelation": "1",
-        "secondFieldNames": [
-          "order_id"
-        ],
-        "secondTableName": "payments",
+        "secondTableName": "pengiriman",
         "secondSchemaName": "public",
         "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_kurir"
+        ],
+        "firstTableName": "kurir",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_kurir"
+        ],
+        "secondTableName": "pengiriman",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
         "checkPoints": []
       }
     ]

@@ -4,44 +4,65 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
-    // Jalankan schema setup jika tabel belum ada
-    $tablesExist = DB::select("SELECT name FROM sqlite_master WHERE type='table' AND name='users'");
+    // Jalankan schema setup jika tabel pelanggan belum ada di database.sqlite
+    $tablesExist = DB::select("SELECT name FROM sqlite_master WHERE type='table' AND name='pelanggan'");
     if (empty($tablesExist)) {
         require_once database_path('demo.php');
     }
 
-    $usersCount = DB::table('users')->count();
-    $productsCount = DB::table('products')->count();
-    $ordersCount = DB::table('orders')->count();
+    $pelangganCount = DB::table('pelanggan')->count();
+    $produkCount = DB::table('produk')->count();
+    $varianCount = DB::table('varian_produk')->count();
+    $pesananCount = DB::table('pesanan')->count();
+    $kategoriCount = DB::table('kategori')->count();
+    $kurirCount = DB::table('kurir')->count();
 
-    $recentOrders = DB::table('orders as o')
-        ->join('users as u', 'o.user_id', '=', 'u.id')
-        ->leftJoin('user_profiles as up', 'u.id', '=', 'up.user_id')
-        ->leftJoin('payments as p', 'o.id', '=', 'p.order_id')
+    // Query Alur Pesanan Lengkap
+    $recentOrders = DB::table('pesanan as p')
+        ->join('pelanggan as c', 'p.id_pelanggan', '=', 'c.id_pelanggan')
+        ->leftJoin('voucher as v', 'p.id_voucher', '=', 'v.id_voucher')
+        ->leftJoin('pembayaran as byr', 'p.id_pesanan', '=', 'byr.id_pesanan')
+        ->leftJoin('pengiriman as kirim', 'p.id_pesanan', '=', 'kirim.id_pesanan')
+        ->leftJoin('kurir as k', 'kirim.id_kurir', '=', 'k.id_kurir')
         ->select(
-            'o.order_code',
-            'u.name as customer_name',
-            'u.email as customer_email',
-            'up.city',
-            'o.total_amount',
-            'o.status as order_status',
-            'p.payment_method',
-            'p.payment_status',
-            'o.created_at'
+            'p.nomor_pesanan',
+            'c.nama as customer_name',
+            'c.email as customer_email',
+            'c.no_telepon',
+            'v.kode_voucher',
+            'p.total_harga',
+            'p.potongan_diskon',
+            'p.total_bayar',
+            'p.status_pesanan',
+            'p.alamat_pengiriman',
+            'byr.metode_pembayaran',
+            'byr.status_pembayaran',
+            'k.nama_kurir',
+            'k.layanan as layanan_kurir',
+            'kirim.nomor_resi',
+            'kirim.status_pengiriman',
+            'p.tanggal_pesanan'
         )
         ->get();
 
-    $orderItems = DB::table('order_items as oi')
-        ->join('orders as o', 'oi.order_id', '=', 'o.id')
-        ->join('products as pr', 'oi.product_id', '=', 'pr.id')
-        ->join('categories as c', 'pr.category_id', '=', 'c.id')
+    // Query Rincian Item Pesanan
+    $orderItems = DB::table('detail_pesanan as dp')
+        ->join('pesanan as p', 'dp.id_pesanan', '=', 'p.id_pesanan')
+        ->join('varian_produk as vp', 'dp.id_varian', '=', 'vp.id_varian')
+        ->join('produk as pr', 'vp.id_produk', '=', 'pr.id_produk')
+        ->join('kategori as kat', 'pr.id_kategori', '=', 'kat.id_kategori')
+        ->join('warna as w', 'vp.id_warna', '=', 'w.id_warna')
+        ->join('ukuran as u', 'vp.id_ukuran', '=', 'u.id_ukuran')
         ->select(
-            'o.order_code',
-            'c.name as category_name',
-            'pr.name as product_name',
-            'oi.quantity',
-            'oi.unit_price',
-            'oi.subtotal'
+            'p.nomor_pesanan',
+            'kat.nama_kategori as category_name',
+            'pr.nama_produk as product_name',
+            'w.nama_warna as color_name',
+            'u.nama_ukuran as size_name',
+            'vp.kode_barang as sku',
+            'dp.jumlah as quantity',
+            'dp.harga_satuan as unit_price',
+            'dp.subtotal'
         )
         ->get();
 
@@ -50,9 +71,12 @@ Route::get('/', function () {
     $svgContent = file_exists(database_path('dbdiagram.svg')) ? file_get_contents(database_path('dbdiagram.svg')) : '';
 
     return view('welcome', compact(
-        'usersCount',
-        'productsCount',
-        'ordersCount',
+        'pelangganCount',
+        'produkCount',
+        'varianCount',
+        'pesananCount',
+        'kategoriCount',
+        'kurirCount',
         'recentOrders',
         'orderItems',
         'dbmlContent',
@@ -61,3 +85,14 @@ Route::get('/', function () {
     ));
 });
 
+// Endpoint untuk melihat raw SVG fullscreen di tab baru
+Route::get('/erd-svg', function () {
+    $path = database_path('dbdiagram.svg');
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response(file_get_contents($path), 200, [
+        'Content-Type' => 'image/svg+xml',
+        'Cache-Control' => 'no-cache, private'
+    ]);
+});
