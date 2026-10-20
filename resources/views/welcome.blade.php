@@ -1358,8 +1358,8 @@ erDiagram
         }
 
         function toggleFitScreen(btn) {
-            isFit = !isFit;
-            updateZoomUI();
+            
+       
         }
     </script>
 </body>
