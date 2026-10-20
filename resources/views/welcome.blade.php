@@ -1358,6 +1358,8 @@ erDiagram
         }
 
         function toggleFitScreen(btn) {
+            isFit = !isFit;
+            updateZoomUI();
             
        
         }
