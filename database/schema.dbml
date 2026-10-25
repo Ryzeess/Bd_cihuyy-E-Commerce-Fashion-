@@ -1,0 +1,250 @@
+// ========================================================
+// DBML (Database Markup Language)
+// Proyek: E-Commerce Fashion Store (12 Entitas BRD)
+// Buka https://dbdiagram.io dan paste kode ini untuk melihat diagramnya
+// ========================================================
+
+Project fashion_store {
+  database_type: 'MySQL'
+  Note: '''
+    # ERD E-Commerce Fashion Store (12 Entitas)
+    Skema database lengkap sesuai spesifikasi BRD:
+    1. pelanggan (Data Customer)
+    2. kategori (Kategori Pakaian)
+    3. warna (Master Pilihan Warna)
+    4. ukuran (Master Pilihan Ukuran)
+    5. produk (Katalog Produk Utama)
+    6. varian_produk (Kombinasi Produk, Warna, Ukuran & Stok)
+    7. voucher (Kode Promo & Diskon)
+    8. pesanan (Header Transaksi Order)
+    9. detail_pesanan (Rincian Item yang Dipesan)
+    10. pembayaran (Data Transaksi Pembayaran 1:1)
+    11. kurir (Master Jasa Ekspedisi)
+    12. pengiriman (Detail Resi & Status Ekspedisi 1:1)
+  '''
+}
+
+// --------------------------------------------------------
+// 1. ENTITAS PELANGGAN
+// --------------------------------------------------------
+Table pelanggan {
+  id_pelanggan integer [primary key, increment, note: 'PK, ID pelanggan']
+  nama varchar(100) [not null, note: 'Nama pelanggan']
+  email varchar(100) [unique, not null, note: 'Email pelanggan']
+  password varchar(255) [not null, note: 'Password akun']
+  no_telepon varchar(20) [note: 'Nomor telepon']
+  alamat text [note: 'Alamat pelanggan']
+  tanggal_daftar datetime [default: `now()`, note: 'Waktu pendaftaran']
+
+  Note: 'Menyimpan data pembeli yang melakukan transaksi'
+}
+
+// --------------------------------------------------------
+// 2. ENTITAS KATEGORI
+// --------------------------------------------------------
+Table kategori {
+  id_kategori integer [primary key, increment, note: 'PK, ID kategori']
+  nama_kategori varchar(50) [not null, note: 'Nama kategori (Kaos, Kemeja, Dress, dll)']
+  deskripsi text [note: 'Penjelasan kategori']
+
+  Note: 'Menyimpan kategori pakaian'
+}
+
+// --------------------------------------------------------
+// 3. ENTITAS WARNA
+// --------------------------------------------------------
+Table warna {
+  id_warna integer [primary key, increment, note: 'PK, ID warna']
+  nama_warna varchar(50) [not null, note: 'Nama warna (Hitam, Putih, Navy, dll)']
+  kode_warna varchar(10) [note: 'Kode warna HEX, misalnya #000000']
+
+  Note: 'Menyimpan pilihan warna pakaian'
+}
+
+// --------------------------------------------------------
+// 4. ENTITAS UKURAN
+// --------------------------------------------------------
+Table ukuran {
+  id_ukuran integer [primary key, increment, note: 'PK, ID ukuran']
+  nama_ukuran varchar(20) [not null, note: 'Nama ukuran (S, M, L, XL, XXL, dll)']
+  keterangan varchar(100) [note: 'Detail ukuran (misal: Lebar Dada / Panjang)']
+
+  Note: 'Menyimpan pilihan ukuran pakaian'
+}
+
+// --------------------------------------------------------
+// 5. ENTITAS PRODUK
+// --------------------------------------------------------
+Table produk {
+  id_produk integer [primary key, increment, note: 'PK, ID produk']
+  id_kategori integer [not null, ref: > kategori.id_kategori, note: 'FK ke kategori']
+  nama_produk varchar(150) [not null, note: 'Nama pakaian/produk']
+  deskripsi text [note: 'Deskripsi lengkap produk']
+  harga decimal(12,2) [not null, default: 0.00, note: 'Harga dasar produk']
+  bahan varchar(50) [note: 'Bahan pakaian (Cotton 30s, Linen, Denim)']
+  gaya varchar(50) [note: 'Gaya pakaian (Casual, Formal, Streetwear)']
+  berat integer [default: 250, note: 'Berat produk dalam satuan gram']
+
+  indexes {
+    id_kategori
+    harga
+  }
+
+  Note: 'Menyimpan data induk pakaian'
+}
+
+// --------------------------------------------------------
+// 6. ENTITAS VARIAN PRODUK
+// --------------------------------------------------------
+Table varian_produk {
+  id_varian integer [primary key, increment, note: 'PK, ID varian']
+  id_produk integer [not null, ref: > produk.id_produk, note: 'FK ke produk']
+  id_warna integer [not null, ref: > warna.id_warna, note: 'FK ke warna']
+  id_ukuran integer [not null, ref: > ukuran.id_ukuran, note: 'FK ke ukuran']
+  kode_barang varchar(50) [unique, not null, note: 'SKU unik per variasi produk']
+  stok integer [not null, default: 0, note: 'Stok ketersediaan varian']
+
+  indexes {
+    id_produk
+    id_warna
+    id_ukuran
+  }
+
+  Note: 'Kombinasi spesifik produk dengan warna dan ukuran serta stok fisik'
+}
+
+// --------------------------------------------------------
+// 7. ENTITAS VOUCHER
+// --------------------------------------------------------
+Table voucher {
+  id_voucher integer [primary key, increment, note: 'PK, ID voucher']
+  kode_voucher varchar(50) [unique, not null, note: 'Kode kupon promo unik']
+  tipe_diskon varchar(20) [not null, default: 'nominal', note: 'Jenis potongan (persen/nominal)']
+  nilai_diskon decimal(12,2) [not null, default: 0.00, note: 'Nilai diskon (persen atau rupiah)']
+  minimal_belanja decimal(12,2) [not null, default: 0.00, note: 'Syarat minimal pembelian']
+  tanggal_mulai datetime [note: 'Awal masa berlaku voucher']
+  tanggal_berakhir datetime [note: 'Batas akhir masa berlaku voucher']
+  status varchar(20) [default: 'aktif', note: 'Status voucher (aktif/nonaktif)']
+
+  Note: 'Menyimpan kode voucher dan promo potongan belanja'
+}
+
+// --------------------------------------------------------
+// 8. ENTITAS PESANAN
+// --------------------------------------------------------
+Table pesanan {
+  id_pesanan integer [primary key, increment, note: 'PK, ID pesanan']
+  nomor_pesanan varchar(50) [unique, not null, note: 'Nomor order unik transaksi']
+  id_pelanggan integer [not null, ref: > pelanggan.id_pelanggan, note: 'FK ke pelanggan']
+  id_voucher integer [ref: > voucher.id_voucher, note: 'FK opsional ke voucher promo']
+  tanggal_pesanan datetime [default: `now()`, note: 'Waktu transaksi dilakukan']
+  total_harga decimal(12,2) [not null, default: 0.00, note: 'Total belanja sebelum diskon']
+  potongan_diskon decimal(12,2) [default: 0.00, note: 'Potongan dari voucher promo']
+  total_bayar decimal(12,2) [not null, default: 0.00, note: 'Total akhir yang harus dibayar']
+  status_pesanan varchar(30) [default: 'menunggu_pembayaran', note: 'Status tahapan pesanan']
+  alamat_pengiriman text [not null, note: 'Alamat lengkap pengantaran paket']
+
+  indexes {
+    id_pelanggan
+    nomor_pesanan
+    status_pesanan
+  }
+
+  Note: 'Header informasi transaksi pesanan pelanggan'
+}
+
+// --------------------------------------------------------
+// 9. ENTITAS DETAIL PESANAN
+// --------------------------------------------------------
+Table detail_pesanan {
+  id_detail integer [primary key, increment, note: 'PK, ID rincian detail pesanan']
+  id_pesanan integer [not null, ref: > pesanan.id_pesanan, note: 'FK ke pesanan']
+  id_varian integer [not null, ref: > varian_produk.id_varian, note: 'FK ke varian_produk']
+  jumlah integer [not null, default: 1, note: 'Kuantitas pcs yang dibeli']
+  harga_satuan decimal(12,2) [not null, note: 'Harga per item saat dipesan']
+  subtotal decimal(12,2) [not null, note: 'Subtotal (jumlah x harga_satuan)']
+
+  indexes {
+    id_pesanan
+    id_varian
+  }
+
+  Note: 'Rincian setiap varian produk yang ada di dalam pesanan'
+}
+
+// --------------------------------------------------------
+// 10. ENTITAS PEMBAYARAN
+// --------------------------------------------------------
+Table pembayaran {
+  id_pembayaran integer [primary key, increment, note: 'PK, ID pembayaran']
+  id_pesanan integer [unique, not null, ref: - pesanan.id_pesanan, note: 'Relasi 1:1 ke pesanan']
+  metode_pembayaran varchar(50) [not null, note: 'Transfer Bank, QRIS, E-Wallet, COD']
+  jumlah_bayar decimal(12,2) [not null, note: 'Nominal dana yang dibayarkan']
+  waktu_bayar datetime [note: 'Waktu konfirmasi pembayaran berhasil']
+  status_pembayaran varchar(30) [default: 'menunggu', note: 'Status (menunggu, lunas, gagal)']
+  bukti_pembayaran varchar(255) [note: 'Path/URL bukti transfer bila ada']
+
+  Note: 'Catatan bukti dan verifikasi pembayaran pesanan (Relasi 1:1)'
+}
+
+// --------------------------------------------------------
+// 11. ENTITAS KURIR
+// --------------------------------------------------------
+Table kurir {
+  id_kurir integer [primary key, increment, note: 'PK, ID kurir ekspedisi']
+  nama_kurir varchar(100) [not null, note: 'Nama ekspedisi (JNE, J&T, SiCepat, GoSend)']
+  kode_kurir varchar(20) [unique, not null, note: 'Kode pengenal unik ekspedisi']
+  layanan varchar(50) [not null, note: 'Jenis servis (Reguler, Next Day, Cargo, Same Day)']
+  tarif_per_kg decimal(12,2) [not null, default: 10000.00, note: 'Biaya dasar ongkir per kilogram']
+
+  Note: 'Master data penyedia jasa kurir dan ekspedisi logistik'
+}
+
+// --------------------------------------------------------
+// 12. ENTITAS PENGIRIMAN
+// --------------------------------------------------------
+Table pengiriman {
+  id_pengiriman integer [primary key, increment, note: 'PK, ID pengiriman paket']
+  id_pesanan integer [unique, not null, ref: - pesanan.id_pesanan, note: 'Relasi 1:1 ke pesanan']
+  id_kurir integer [not null, ref: > kurir.id_kurir, note: 'FK ke kurir']
+  nomor_resi varchar(100) [unique, not null, note: 'Nomor resi pelacakan pengiriman']
+  status_pengiriman varchar(30) [default: 'diproses', note: 'Status (diproses, dikirim, diterima)']
+  biaya_ongkir decimal(12,2) [not null, default: 0.00, note: 'Biaya ongkos kirim']
+  tanggal_kirim datetime [note: 'Waktu paket diserahkan ke kurir']
+  tanggal_diterima datetime [note: 'Waktu paket tiba di tangan pembeli']
+
+  indexes {
+    id_pesanan
+    id_kurir
+    nomor_resi
+  }
+
+  Note: 'Rincian status pengiriman barang dari pesanan (Relasi 1:1)'
+}
+
+// --------------------------------------------------------
+// TABLE GROUPS (Untuk Tampilan Rapi di dbdiagram.io)
+// --------------------------------------------------------
+TableGroup MasterKatalog {
+  kategori
+  produk
+  varian_produk
+  warna
+  ukuran
+}
+
+TableGroup PelangganPromo {
+  pelanggan
+  voucher
+}
+
+TableGroup TransaksiPesanan {
+  pesanan
+  detail_pesanan
+  pembayaran
+}
+
+TableGroup LogistikPengiriman {
+  pengiriman
+  kurir
+}

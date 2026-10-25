@@ -1,0 +1,254 @@
+{
+  "version": "3.0.0",
+  "darkMode": true,
+  "gridEnabling": false,
+  "currentViewName": null,
+  "defaultView": {
+    "detailLevel": "All",
+    "relationshipMode": "All",
+    "tablePositions": [
+      {
+        "name": "kategori",
+        "schemaName": "public",
+        "x": 40,
+        "y": 40
+      },
+      {
+        "name": "produk",
+        "schemaName": "public",
+        "x": 40,
+        "y": 240
+      },
+      {
+        "name": "warna",
+        "schemaName": "public",
+        "x": 40,
+        "y": 550
+      },
+      {
+        "name": "ukuran",
+        "schemaName": "public",
+        "x": 40,
+        "y": 750
+      },
+      {
+        "name": "varian_produk",
+        "schemaName": "public",
+        "x": 380,
+        "y": 320
+      },
+      {
+        "name": "detail_pesanan",
+        "schemaName": "public",
+        "x": 720,
+        "y": 340
+      },
+      {
+        "name": "pelanggan",
+        "schemaName": "public",
+        "x": 720,
+        "y": 40
+      },
+      {
+        "name": "voucher",
+        "schemaName": "public",
+        "x": 1080,
+        "y": 40
+      },
+      {
+        "name": "pesanan",
+        "schemaName": "public",
+        "x": 1060,
+        "y": 300
+      },
+      {
+        "name": "pembayaran",
+        "schemaName": "public",
+        "x": 720,
+        "y": 680
+      },
+      {
+        "name": "pengiriman",
+        "schemaName": "public",
+        "x": 1060,
+        "y": 680
+      },
+      {
+        "name": "kurir",
+        "schemaName": "public",
+        "x": 1380,
+        "y": 680
+      }
+    ],
+    "tableGroupCollapseStates": [],
+    "stickyNoteLayouts": [],
+    "referencePaths": [
+      {
+        "firstFieldNames": [
+          "id_kategori"
+        ],
+        "firstTableName": "kategori",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_kategori"
+        ],
+        "secondTableName": "produk",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_produk"
+        ],
+        "firstTableName": "produk",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_produk"
+        ],
+        "secondTableName": "varian_produk",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_warna"
+        ],
+        "firstTableName": "warna",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_warna"
+        ],
+        "secondTableName": "varian_produk",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_ukuran"
+        ],
+        "firstTableName": "ukuran",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_ukuran"
+        ],
+        "secondTableName": "varian_produk",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_varian"
+        ],
+        "firstTableName": "varian_produk",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_varian"
+        ],
+        "secondTableName": "detail_pesanan",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_pelanggan"
+        ],
+        "firstTableName": "pelanggan",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_pelanggan"
+        ],
+        "secondTableName": "pesanan",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_voucher"
+        ],
+        "firstTableName": "voucher",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_voucher"
+        ],
+        "secondTableName": "pesanan",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_pesanan"
+        ],
+        "firstTableName": "pesanan",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_pesanan"
+        ],
+        "secondTableName": "detail_pesanan",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_pesanan"
+        ],
+        "firstTableName": "pesanan",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_pesanan"
+        ],
+        "secondTableName": "pembayaran",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_pesanan"
+        ],
+        "firstTableName": "pesanan",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_pesanan"
+        ],
+        "secondTableName": "pengiriman",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "id_kurir"
+        ],
+        "firstTableName": "kurir",
+        "firstSchemaName": "public",
+        "firstRelation": "1",
+        "secondFieldNames": [
+          "id_kurir"
+        ],
+        "secondTableName": "pengiriman",
+        "secondSchemaName": "public",
+        "secondRelation": "*",
+        "checkPoints": []
+      }
+    ]
+  },
+  "views": {}
+}
