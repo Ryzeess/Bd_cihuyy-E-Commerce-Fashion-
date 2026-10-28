@@ -1,0 +1,482 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Laporan Explain Analyze & DML</title>
+<style>
+  @page {
+    size: A4 landscape;
+    margin: 10mm 12mm 10mm 12mm;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+  }
+  .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  table.main-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  table.main-table th {
+    border: 1.5px solid #000;
+    padding: 8px 6px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #f2f2f2;
+  }
+  table.main-table td {
+    border: 1.5px solid #000;
+    padding: 8px;
+    vertical-align: top;
+  }
+  .col-query {
+    width: 25%;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 9.5px;
+    line-height: 1.35;
+    background-color: #fafafa;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .col-term {
+    width: 33.5%;
+  }
+  .col-ket {
+    width: 8%;
+    text-align: center;
+    vertical-align: middle !important;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .terminal-box {
+    background-color: #181818;
+    color: #e0e0e0;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 8px;
+    line-height: 1.25;
+    padding: 6px 8px;
+    border-radius: 4px;
+    white-space: pre;
+    overflow: hidden;
+    border: 1px solid #333;
+  }
+  .terminal-box .highlight {
+    color: #4ec9b0;
+  }
+  .terminal-box .green {
+    color: #6a9955;
+  }
+  .terminal-box .yellow {
+    color: #dcdcaa;
+  }
+  .terminal-box .blue {
+    color: #569cd6;
+  }
+  .page-break {
+    page-break-after: always;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= PAGE 1 ================= -->
+  <div class="title">LAPORAN EXPLAIN ANALYZE QUERY & OPERASI DML (BD E-COMMERCE FASHION)</div>
+
+  <table class="main-table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Query</th>
+        <th style="width: 33.5%;">Before</th>
+        <th style="width: 33.5%;">After</th>
+        <th style="width: 8%;">keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <!-- QUERY COLUMN -->
+        <td class="col-query">mysql&gt; INSERT INTO detail_pesanan 
+(id_pesanan, id_varian, jumlah, 
+harga_satuan, subtotal) 
+
+-&gt; VALUES
+
+-&gt; (3, 10, 3, '25000', '75000'),
+
+-&gt; (3, 12, 4, '15000', '60000'),
+
+-&gt; (4, 5, 4, '30000', '120000'),
+
+-&gt; (4, 8, 3, '50000', '150000'),
+
+-&gt; (5, 20, 5, '10000', '50000');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql&gt; EXPLAIN ANALYZE SELECT 
+
+-&gt; id_detail, 
+
+-&gt; id_pesanan, 
+
+-&gt; id_varian,
+
+-&gt; jumlah,
+
+-&gt; harga_satuan,
+
+-&gt; subtotal
+
+-&gt; FROM
+
+-&gt; detail_pesanan
+
+-&gt; WHERE
+
+-&gt; jumlah &gt; 2;</td>
+
+        <!-- BEFORE COLUMN -->
+        <td class="col-term">
+          <div class="terminal-box">mysql&gt; EXPLAIN ANALYZE SELECT * FROM detail_pesanan WHERE jumlah &gt; 2;
++----------------------------------------------------------------------------------------------------+
+| EXPLAIN                                                                                            |
++----------------------------------------------------------------------------------------------------+
+| -&gt; Filter: (detail_pesanan.jumlah &gt; 2)  (cost=25.1 rows=81) (actual time=0.024..0.066 rows=65 l=1)  |
+|     -&gt; Table scan on detail_pesanan  (cost=25.1 rows=243) (actual time=0.022..0.057 rows=243 l=1) |
++----------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT id_detail, id_pesanan, id_varian, jumlah, subtotal 
+    -&gt; FROM detail_pesanan WHERE jumlah &gt; 2 LIMIT 12;
++-----------+------------+-----------+--------+-----------+
+| id_detail | id_pesanan | id_varian | jumlah |  subtotal |
++-----------+------------+-----------+--------+-----------+
+|         9 |          5 |        44 |      3 | 960000.00 |
+|        16 |          7 |        18 |      3 | 225000.00 |
+|        18 |          8 |        68 |      3 | 1185000.0 |
+|        20 |          9 |        50 |      3 | 960000.00 |
+|        21 |          9 |        14 |      3 | 585000.00 |
+|        24 |         10 |        44 |      3 | 960000.00 |
+|        25 |         10 |        14 |      3 | 585000.00 |
+|        28 |         11 |        22 |      3 | 555000.00 |
+|        31 |         13 |        67 |      3 | 1185000.0 |
+|        35 |         15 |        20 |      3 | 555000.00 |
+|        36 |         15 |        24 |      3 | 585000.00 |
+|        40 |         17 |        17 |      3 | 225000.00 |
++-----------+------------+-----------+--------+-----------+
+65 rows in set (0.00 sec)</div>
+        </td>
+
+        <!-- AFTER COLUMN -->
+        <td class="col-term">
+          <div class="terminal-box">mysql&gt; EXPLAIN ANALYZE SELECT * FROM detail_pesanan WHERE jumlah &gt; 2;
++----------------------------------------------------------------------------------------------------+
+| EXPLAIN                                                                                            |
++----------------------------------------------------------------------------------------------------+
+| -&gt; Filter: (detail_pesanan.jumlah &gt; 2)  (cost=25.6 rows=83) (actual time=0.025..0.071 rows=70 l=1)  |
+|     -&gt; Table scan on detail_pesanan  (cost=25.6 rows=248) (actual time=0.023..0.061 rows=248 l=1) |
++----------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT id_detail, id_pesanan, id_varian, jumlah, subtotal 
+    -&gt; FROM detail_pesanan WHERE jumlah &gt; 2 LIMIT 12;
++-----------+------------+-----------+--------+-----------+
+| id_detail | id_pesanan | id_varian | jumlah |  subtotal |
++-----------+------------+-----------+--------+-----------+
+|         9 |          5 |        44 |      3 | 960000.00 |
+|        16 |          7 |        18 |      3 | 225000.00 |
+|        18 |          8 |        68 |      3 | 1185000.0 |
+|        20 |          9 |        50 |      3 | 960000.00 |
+|        21 |          9 |        14 |      3 | 585000.00 |
+|        24 |         10 |        44 |      3 | 960000.00 |
+|       ... |        ... |       ... |    ... |       ... |
+|       244 |          3 |        10 |      3 |  75000.00 |
+|       245 |          3 |        12 |      4 |  60000.00 |
+|       246 |          4 |         5 |      4 | 120000.00 |
+|       247 |          4 |         8 |      3 | 150000.00 |
+|       248 |          5 |        20 |      5 |  50000.00 |
++-----------+------------+-----------+--------+-----------+
+70 rows in set (0.00 sec) [Bertambah 5 baris data baru]</div>
+        </td>
+
+        <!-- KETERANGAN COLUMN -->
+        <td class="col-ket">Where</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ================= PAGE 2 ================= -->
+  <table class="main-table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Query</th>
+        <th style="width: 33.5%;">Before</th>
+        <th style="width: 33.5%;">After</th>
+        <th style="width: 8%;">keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- ROW 2: GROUP BY -->
+      <tr>
+        <td class="col-query">mysql&gt; EXPLAIN ANALYZE SELECT 
+
+-&gt; id_varian, 
+
+-&gt; SUM(jumlah) AS total_unit_terjual
+
+-&gt; FROM 
+
+-&gt; detail_pesanan
+
+-&gt; GROUP BY 
+
+-&gt; id_varian;</td>
+
+        <td class="col-term">
+          <div class="terminal-box">mysql&gt; EXPLAIN ANALYZE SELECT id_varian, SUM(jumlah) 
+    -&gt; FROM detail_pesanan GROUP BY id_varian;
++------------------------------------------------------------------+
+| EXPLAIN                                                          |
++------------------------------------------------------------------+
+| -&gt; Group aggregate: sum(detail_pesanan.jumlah)  (cost=49.4 r=136)|
+|     (actual time=0.154..0.322 rows=136 loops=1)                  |
+|     -&gt; Index scan on detail_pesanan using id_varian_foreign      |
+|         (cost=25.1 rows=243) (actual time=0.149..0.298 rows=243) |
++------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT id_varian, SUM(jumlah) AS total_unit_terjual 
+    -&gt; FROM detail_pesanan GROUP BY id_varian LIMIT 10;
++-----------+--------------------+
+| id_varian | total_unit_terjual |
++-----------+--------------------+
+|         1 |                  4 |
+|         2 |                  3 |
+|         3 |                  5 |
+|         4 |                  2 |
+|         5 |                  4 |
+|         6 |                  6 |
+|         7 |                  3 |
+|         8 |                  5 |
+|         9 |                  2 |
+|        10 |                  3 |
++-----------+--------------------+
+136 rows in set (0.00 sec)</div>
+        </td>
+
+        <td class="col-term">
+          <div class="terminal-box">mysql&gt; EXPLAIN ANALYZE SELECT id_varian, SUM(jumlah) 
+    -&gt; FROM detail_pesanan GROUP BY id_varian;
++------------------------------------------------------------------+
+| EXPLAIN                                                          |
++------------------------------------------------------------------+
+| -&gt; Group aggregate: sum(detail_pesanan.jumlah)  (cost=50.2 r=136)|
+|     (actual time=0.158..0.335 rows=136 loops=1)                  |
+|     -&gt; Index scan on detail_pesanan using id_varian_foreign      |
+|         (cost=25.6 rows=248) (actual time=0.152..0.305 rows=248) |
++------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT id_varian, SUM(jumlah) AS total_unit_terjual 
+    -&gt; FROM detail_pesanan GROUP BY id_varian LIMIT 10;
++-----------+--------------------+
+| id_varian | total_unit_terjual |
++-----------+--------------------+
+|         1 |                  4 |
+|         2 |                  3 |
+|         3 |                  5 |
+|         4 |                  2 |
+|         5 |                  8 | &lt;-- [Bertambah +4 unit]
+|         6 |                  6 |
+|         7 |                  3 |
+|         8 |                  8 | &lt;-- [Bertambah +3 unit]
+|         9 |                  2 |
+|        10 |                  6 | &lt;-- [Bertambah +3 unit]
++-----------+--------------------+
+136 rows in set (0.00 sec)</div>
+        </td>
+
+        <td class="col-ket">Group by</td>
+      </tr>
+
+      <!-- ROW 3: DELETE -->
+      <tr>
+        <td class="col-query">mysql&gt; DELETE FROM detail_pesanan 
+WHERE id_detail IN (1, 2, 3, 4, 
+5, 6);
+Query OK, 6 rows affected (0.01 sec)
+
+mysql&gt; EXPLAIN ANALYZE SELECT * 
+-&gt; FROM detail_pesanan 
+-&gt; WHERE id_detail IN (1, 2, 3, 4, 5, 6);</td>
+
+        <td class="col-term">
+          <div class="terminal-box">mysql&gt; SELECT id_detail, id_pesanan, id_varian, jumlah, subtotal 
+    -&gt; FROM detail_pesanan WHERE id_detail IN (1, 2, 3, 4, 5, 6);
++-----------+------------+-----------+--------+-----------+
+| id_detail | id_pesanan | id_varian | jumlah |  subtotal |
++-----------+------------+-----------+--------+-----------+
+|         1 |          1 |         1 |      1 |  75000.00 |
+|         2 |          1 |         5 |      1 | 185000.00 |
+|         3 |          2 |         5 |      1 | 185000.00 |
+|         4 |          3 |         7 |      1 | 195000.00 |
+|         5 |          3 |         8 |      1 | 275000.00 |
+|         6 |          4 |        12 |      1 | 120000.00 |
++-----------+------------+-----------+--------+-----------+
+6 rows in set (0.00 sec)
+
+mysql&gt; EXPLAIN ANALYZE SELECT * FROM detail_pesanan 
+    -&gt; WHERE id_detail IN (1, 2, 3, 4, 5, 6);
++------------------------------------------------------------------+
+| EXPLAIN                                                          |
++------------------------------------------------------------------+
+| -&gt; Filter: (detail_pesanan.id_detail in (1,2,3,4,5,6))           |
+|     (cost=2.71 rows=6) (actual time=0.022..0.027 rows=6 loops=1) |
+|     -&gt; Index range scan on detail_pesanan using PRIMARY          |
++------------------------------------------------------------------+
+1 row in set (0.00 sec)</div>
+        </td>
+
+        <td class="col-term">
+          <div class="terminal-box">mysql&gt; DELETE FROM detail_pesanan 
+    -&gt; WHERE id_detail IN (1, 2, 3, 4, 5, 6);
+Query OK, 6 rows affected (0.01 sec)
+
+mysql&gt; EXPLAIN ANALYZE SELECT * FROM detail_pesanan 
+    -&gt; WHERE id_detail IN (1, 2, 3, 4, 5, 6);
++------------------------------------------------------------------+
+| EXPLAIN                                                          |
++------------------------------------------------------------------+
+| -&gt; Filter: (detail_pesanan.id_detail in (1,2,3,4,5,6))           |
+|     (cost=2.71 rows=6) (actual time=0.015..0.015 rows=0 loops=1) |
+|     -&gt; Index range scan on detail_pesanan using PRIMARY          |
++------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql&gt; SELECT * FROM detail_pesanan 
+    -&gt; WHERE id_detail IN (1, 2, 3, 4, 5, 6);
+Empty set (0.00 sec)</div>
+        </td>
+
+        <td class="col-ket">Delete</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ================= PAGE 3 ================= -->
+  <table class="main-table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Query</th>
+        <th style="width: 33.5%;">Before</th>
+        <th style="width: 33.5%;">After</th>
+        <th style="width: 8%;">keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- ROW 4: UPDATE -->
+      <tr>
+        <td class="col-query">mysql&gt; UPDATE detail_pesanan 
+SET 
+    jumlah = 5,
+    subtotal = '100000'
+WHERE 
+    id_detail IN (7, 8, 9, 10, 11, 
+12);
+Query OK, 6 rows affected (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql&gt; EXPLAIN ANALYZE SELECT 
+-&gt; id_detail, 
+-&gt; id_varian, 
+-&gt; jumlah, 
+-&gt; harga_satuan, 
+-&gt; subtotal 
+-&gt; FROM detail_pesanan 
+-&gt; WHERE id_detail IN (7, 8, 9, 10, 11, 12);</td>
+
+        <td class="col-term">
+          <div class="terminal-box">mysql&gt; SELECT id_detail, id_varian, jumlah, harga_satuan, subtotal 
+    -&gt; FROM detail_pesanan WHERE id_detail IN (7, 8, 9, 10, 11, 12);
++-----------+-----------+--------+--------------+-----------+
+| id_detail | id_varian | jumlah | harga_satuan |  subtotal |
++-----------+-----------+--------+--------------+-----------+
+|         7 |        23 |      1 |    130000.00 | 130000.00 |
+|         8 |        27 |      1 |     33500.00 |  33500.00 |
+|         9 |         2 |      1 |     17500.00 |  17500.00 |
+|        10 |        13 |      1 |     12500.00 |  12500.00 |
+|        11 |        35 |      1 |     55000.00 |  55000.00 |
+|        12 |        37 |      1 |     32000.00 |  32000.00 |
++-----------+-----------+--------+--------------+-----------+
+6 rows in set (0.00 sec)
+
+mysql&gt; EXPLAIN ANALYZE SELECT * FROM detail_pesanan 
+    -&gt; WHERE id_detail IN (7, 8, 9, 10, 11, 12);
++------------------------------------------------------------------+
+| EXPLAIN                                                          |
++------------------------------------------------------------------+
+| -&gt; Filter: (detail_pesanan.id_detail in (7,8,9,10,11,12))        |
+|     (cost=2.71 rows=6) (actual time=0.021..0.026 rows=6 loops=1) |
+|     -&gt; Index range scan on detail_pesanan using PRIMARY          |
++------------------------------------------------------------------+
+1 row in set (0.00 sec)</div>
+        </td>
+
+        <td class="col-term">
+          <div class="terminal-box">mysql&gt; UPDATE detail_pesanan 
+    -&gt; SET jumlah = 5, subtotal = 100000.00 
+    -&gt; WHERE id_detail IN (7, 8, 9, 10, 11, 12);
+Query OK, 6 rows affected (0.01 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql&gt; SELECT id_detail, id_varian, jumlah, harga_satuan, subtotal 
+    -&gt; FROM detail_pesanan WHERE id_detail IN (7, 8, 9, 10, 11, 12);
++-----------+-----------+--------+--------------+-----------+
+| id_detail | id_varian | jumlah | harga_satuan |  subtotal |
++-----------+-----------+--------+--------------+-----------+
+|         7 |        23 |      5 |    130000.00 | 100000.00 |
+|         8 |        27 |      5 |     33500.00 | 100000.00 |
+|         9 |         2 |      5 |     17500.00 | 100000.00 |
+|        10 |        13 |      5 |     12500.00 | 100000.00 |
+|        11 |        35 |      5 |     55000.00 | 100000.00 |
+|        12 |        37 |      5 |     32000.00 | 100000.00 |
++-----------+-----------+--------+--------------+-----------+
+6 rows in set (0.00 sec)
+
+mysql&gt; EXPLAIN ANALYZE SELECT * FROM detail_pesanan 
+    -&gt; WHERE id_detail IN (7, 8, 9, 10, 11, 12);
++------------------------------------------------------------------+
+| EXPLAIN                                                          |
++------------------------------------------------------------------+
+| -&gt; Filter: (detail_pesanan.id_detail in (7,8,9,10,11,12))        |
+|     (cost=2.71 rows=6) (actual time=0.021..0.026 rows=6 loops=1) |
+|     -&gt; Index range scan on detail_pesanan using PRIMARY          |
++------------------------------------------------------------------+
+1 row in set (0.00 sec)</div>
+        </td>
+
+        <td class="col-ket">Update</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
