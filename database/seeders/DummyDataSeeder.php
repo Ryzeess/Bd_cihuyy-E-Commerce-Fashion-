@@ -37,10 +37,10 @@ class DummyDataSeeder extends Seeder
         set_time_limit(0);
         DB::disableQueryLog();
 
-        $this->command?->info("Memulai proses seeding data otomatis skala besar...");
+        $this->command?->info("🚀 Memulai proses seeding data otomatis skala besar...");
 
         // 1. ENTITAS MASTER: Kategori, Warna, Ukuran, Kurir
-        $this->command?->info("[1/6] Menyiapkan Master Data (Kategori, Warna, Ukuran, Kurir)...");
+        $this->command?->info("📦 [1/6] Menyiapkan Master Data (Kategori, Warna, Ukuran, Kurir)...");
 
         $kategoriCount = Kategori::count();
         if ($kategoriCount < 15) {
@@ -67,7 +67,7 @@ class DummyDataSeeder extends Seeder
         $kurirs = Kurir::all();
 
         // 2. ENTITAS VOUCHER
-        $this->command?->info("[2/6] Menyiapkan Data Voucher Promo...");
+        $this->command?->info("🎟️ [2/6] Menyiapkan Data Voucher Promo...");
         $voucherCount = Voucher::count();
         if ($voucherCount < $this->jumlahVoucher) {
             Voucher::factory()->count($this->jumlahVoucher - $voucherCount)->create();
@@ -122,7 +122,7 @@ class DummyDataSeeder extends Seeder
         $existingProduk = Produk::count();
         $targetProduk = $this->jumlahProduk;
         $neededProduk = max(0, $targetProduk - $existingProduk);
-        $this->command?->info("[4/6] Memproses Data Produk ({$this->jumlahProduk} produk) & Varian SKU...");
+        $this->command?->info("👕 [4/6] Memproses Data Produk ({$this->jumlahProduk} produk) & Varian SKU...");
 
         if ($neededProduk > 0) {
             Produk::factory()->count($neededProduk)->create();

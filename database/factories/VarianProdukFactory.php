@@ -17,12 +17,17 @@ class VarianProdukFactory extends Factory
 
     public function definition(): array
     {
+        // Mengambil ID secara acak dari database jika ada
+        $randomProduk = Produk::inRandomOrder()->value('id_produk');
+        $randomWarna  = Warna::inRandomOrder()->value('id_warna');
+        $randomUkuran = Ukuran::inRandomOrder()->value('id_ukuran');
+
         return [
-            'id_produk' => Produk::inRandomOrder()->first()?->id_produk ?? Produk::factory(),
-            'id_warna' => Warna::inRandomOrder()->first()?->id_warna ?? Warna::factory(),
-            'id_ukuran' => Ukuran::inRandomOrder()->first()?->id_ukuran ?? Ukuran::factory(),
+            'id_produk'   => $randomProduk ?: Produk::factory(),
+            'id_warna'    => $randomWarna ?: Warna::factory(),
+            'id_ukuran'   => $randomUkuran ?: Ukuran::factory(),
             'kode_barang' => 'SKU-' . strtoupper(fake()->unique()->bothify('???-####-???')),
-            'stok' => fake()->numberBetween(5, 80),
+            'stok'        => fake()->numberBetween(5, 80),
         ];
     }
 }
