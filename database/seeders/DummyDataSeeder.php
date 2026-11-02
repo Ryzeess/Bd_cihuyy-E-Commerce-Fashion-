@@ -72,7 +72,7 @@ class DummyDataSeeder extends Seeder
         if ($voucherCount < $this->jumlahVoucher) {
             Voucher::factory()->count($this->jumlahVoucher - $voucherCount)->create();
         }
-        $vouchers = Voucher::where('status', 'aktif')->get();
+        $vouchers = Voucher::where('status', 'aktif')->limit(100)->get();
 
         // 3. ENTITAS PELANGGAN (Batch Insert Super Cepat: 100.000 data dalam hitungan detik)
         $existingPelanggan = Pelanggan::count();
